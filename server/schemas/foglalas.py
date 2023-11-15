@@ -1,23 +1,8 @@
-import datetime
-from typing import List
+from datetime import date
 from pydantic import BaseModel
 
-from schemas import felhasznalo, vendeg, szoba
-
-
-class FoglalasBase(BaseModel):
+class FoglalasCreate(BaseModel):
     email: str
-    mettol: datetime
-    meddig: datetime
+    mettol: date
+    meddig: date
     fizetendo: int
-
-class FoglalasCreate(FoglalasBase):
-    pass
-
-class Foglalas(FoglalasBase):
-    felhasznalo: felhasznalo.Felhasznalo
-    vendeg: vendeg.Vendeg
-    szoba: szoba.Szoba
-
-    class Config:
-        orm_mode = True

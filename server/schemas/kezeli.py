@@ -1,18 +1,9 @@
+from datetime import date
 from pydantic import BaseModel
 
-from schemas import felhasznalo, vendeg
-
-
-class KezeliBase(BaseModel):
+class KezeliCreate(BaseModel):
     felhasznalonev: str
     email: str
-
-class KezeliCreate(KezeliBase):
-    pass
-
-class Kezeli(KezeliBase):
-    felhasznalo: felhasznalo.Felhasznalo
-    vendeg: vendeg.Vendeg
-
-    class Config:
-        orm_mode = True
+    mettol: date
+    meddig: date
+    

@@ -1,22 +1,8 @@
-import datetime
+from datetime import date
 from pydantic import BaseModel
 
-from schemas import szoba, foglalas, vendeg
-
-
-class SzobajaBase(BaseModel):
-    szobaszam: int
-    mettol: datetime
-    meddig: datetime
+class SzobajaCreate(BaseModel):
     email: str
-
-class SzobajaCreate(SzobajaBase):
-    pass
-
-class Szobaja(SzobajaBase):
-    szoba: szoba.Szoba
-    foglalas: foglalas.Foglalas
-    vendeg: vendeg.Vendeg
-
-    class Config:
-        orm_mode = True
+    mettol: date
+    meddig: date
+    szobaszam: int
