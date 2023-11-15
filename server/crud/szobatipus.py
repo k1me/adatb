@@ -19,3 +19,22 @@ def szobatipus_by_megnevezes(megnevezes: str, db: Session):
     if db_szobatipus is None:
         raise HTTPException(status_code=404, detail="Nincs ilyen szobatipus")
     return db_szobatipus
+
+def szobatipus_delete(megnevezes: str, db: Session):
+    db_szobatipus = db.query(model_szobatipus.SzobaTipus).filter(model_szobatipus.SzobaTipus.megnevezes == megnevezes).first()
+    if db_szobatipus is None:
+        raise HTTPException(status_code=404, detail="Nincs ilyen szobatipus")
+    db.delete(db_szobatipus)
+    db.commit()
+    return db_szobatipus
+
+def szobatipus_update(megnevezes: str, szobatipus: schema_szobatipus.SzobaTipusCreate, db: Session):
+    db_szobatipus = db.query(model_szobatipus.SzobaTipus).filter(model_szobatipus.SzobaTipus.megnevezes == megnevezes).first()
+    if not db_szobatipus:
+        raise HTTPException(status_code=404, detail="Nincs ilyen szobatipus")
+    
+    if szobatipus.napi_ar is not None:
+        db_szobatipus.napi_ar = szobatipus.napi_ar
+    
+    db.commit()
+    return db_szobatipus

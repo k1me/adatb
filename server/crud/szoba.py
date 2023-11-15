@@ -14,6 +14,25 @@ def szoba_create(szoba: schema_szoba.SzobaCreate, db: Session):
 def szoba_list(db: Session):
     return db.query(model_szoba.Szoba).all()
 
+def szoba_delete(szobaszam: int, db: Session):
+    db_szoba = db.query(model_szoba.Szoba).filter(model_szoba.Szoba.szobaszam == szobaszam).first()
+    if db_szoba is None:
+        raise HTTPException(status_code=404, detail="Nincs ilyen szoba")
+    db.delete(db_szoba)
+    db.commit()
+    return db_szoba
+
+def szoba_update(szobaszam: int, szoba: schema_szoba.SzobaCreate, db: Session):
+    db_szoba = db.query(model_szoba.Szoba).filter(model_szoba.Szoba.szobaszam == szobaszam).first()
+    if not db_szoba:
+        raise HTTPException(status_code=404, detail="Nincs ilyen szoba")
+    
+    if szoba.megnevezes is not None:
+        db_szoba.megnevezes = szoba.megnevezes
+    
+    db.commit()
+    return db_szoba
+
 def szoba_by_szobaszam(szobaszam: int, db: Session):
     db_szoba = db.query(model_szoba.Szoba).filter(model_szoba.Szoba.szobaszam == szobaszam).first()
     if db_szoba is None:

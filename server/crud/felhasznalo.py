@@ -11,8 +11,34 @@ def felhasznalo_create(felhasznalo: schema_felhasznalo.FelhasznaloCreate, db: Se
     db.refresh(db_felhasznalo)
     return db_felhasznalo
 
-def felhasznalo_login(felhasznalonev: str, jelszo: str, db: Session):
-    db_felhasznalo = db.query(model_felhasznalo.Vendeg).filter(model_felhasznalo.Vendeg.felhasznalonev == felhasznalonev, model_felhasznalo.Vendeg.jelszo == jelszo).first()
+def felhasznalo_list(db: Session):
+    return db.query(model_felhasznalo.Felhasznalo).all()
+
+def felhasznalo_delete(felhasznalonev: str, db: Session):
+    db_felhasznalo = db.query(model_felhasznalo.Felhasznalo).filter(model_felhasznalo.Felhasznalo.felhasznalonev == felhasznalonev).first()
     if db_felhasznalo is None:
         raise HTTPException(status_code=404, detail="Nincs ilyen felhasznalo")
+    db.delete(db_felhasznalo)
+    db.commit()
+    return db_felhasznalo
+
+def felhasznalo_update(felhasznalonev: str, felhasznalo: schema_felhasznalo.FelhasznaloCreate, db: Session):
+    db_felhasznalo = db.query(model_felhasznalo.Felhasznalo).filter(model_felhasznalo.Felhasznalo.felhasznalonev == felhasznalonev).first()
+    if not db_felhasznalo:
+        raise HTTPException(status_code=404, detail="Nincs ilyen felhasznalo")
+    
+    if felhasznalo.nev is not None:
+        db_felhasznalo.nev = felhasznalo.nev
+    if felhasznalo.jelszo is not None:
+        db_felhasznalo.jelszo = felhasznalo.jelszo
+    
+    db.commit()
+    return db_felhasznalo
+
+def felhasznalo_login(felhasznalonev: str, jelszo: str, db: Session):
+    db_felhasznalo = db.query(model_felhasznalo.Felhasznalo).filter(model_felhasznalo.Felhasznalo.felhasznalonev == felhasznalonev).first()
+    if db_felhasznalo is None:
+        raise HTTPException(status_code=404, detail="Nincs ilyen felhasznalo")
+    if db_felhasznalo.jelszo != jelszo:
+        raise HTTPException(status_code=404, detail="Hibas jelszo")
     return db_felhasznalo

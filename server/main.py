@@ -38,107 +38,152 @@ def get_db():
 
 # SzobaTipus-----------------------------------------------------------------------------------
 
-@app.post("/szobatipus")
+@app.post("/szobatipus", tags=["Szobatipus", "Create"])
 def szobatipus_create(szobatipus: schema_szobatipus.SzobaTipusCreate, db: Session = Depends(get_db)):
-    
     return crud_szobatipus.szobatipus_create(szobatipus, db)
 
-@app.get("/szobatipus")
+@app.get("/szobatipus", tags=["Szobatipus", "Read"])
 def szobatipus_list(db: Session = Depends(get_db)):
     return crud_szobatipus.szobatipus_list(db)
 
-@app.get("/szobatipus/{megnevezes}")
+@app.put("/szobatipus/{megnevezes}", tags=["Szobatipus", "Update"])
+def szobatipus_update(megnevezes: str, szobatipus: schema_szobatipus.SzobaTipusCreate, db: Session = Depends(get_db)):
+    return crud_szobatipus.szobatipus_update(megnevezes, szobatipus, db)
+
+@app.delete("/szobatipus/{megnevezes}", tags=["Szobatipus", "Delete"])
+def szobatipus_delete(megnevezes: str, db: Session = Depends(get_db)):
+    return crud_szobatipus.szobatipus_delete(megnevezes, db)
+
+@app.get("/szobatipus/{megnevezes}", tags=["Szobatipus", "Read"])
 def szobatipus_by_megnevezes(megnevezes: str, db: Session = Depends(get_db)):
     return crud_szobatipus.szobatipus_by_megnevezes(megnevezes, db)
 
 # Szoba---------------------------------------------------------------------------------------
 
-@app.post("/szoba")
+@app.post("/szoba", tags=["Szoba", "Create"])
 def szoba_create(szoba: schema_szoba.SzobaCreate, db: Session = Depends(get_db)):
     return crud_szoba.szoba_create(szoba, db)
 
-@app.get("/szoba")
+@app.get("/szoba", tags=["Szoba", "Read"])
 def szoba_list(db: Session = Depends(get_db)):
     return crud_szoba.szoba_list(db)
 
-@app.get("/szoba/szobaszam/{szobaszam}")
+@app.put("/szoba/{szobaszam}", tags=["Szoba", "Update"])
+def szoba_update(szobaszam: int, szoba: schema_szoba.SzobaCreate, db: Session = Depends(get_db)):
+    return crud_szoba.szoba_update(szobaszam, szoba, db)
+
+@app.delete("/szoba/{szobaszam}", tags=["Szoba", "Delete"])
+def szoba_delete(szobaszam: int, db: Session = Depends(get_db)):
+    return crud_szoba.szoba_delete(szobaszam, db)
+
+@app.get("/szoba/szobaszam/{szobaszam}", tags=["Szoba", "Read"])
 def szoba_by_szobaszam(szobaszam: int, db: Session = Depends(get_db)):
     return crud_szoba.szoba_by_szobaszam(szobaszam, db)
 
-@app.get("/szoba/megnevezes/{megnevezes}")
+@app.get("/szoba/megnevezes/{megnevezes}", tags=["Szoba", "Read"])
 def szoba_by_megnevezes(megnevezes: str, db: Session = Depends(get_db)):
     return crud_szoba.szoba_by_megnevezes(megnevezes, db)
 
 # Vendeg--------------------------------------------------------------------------------------
 
-@app.post("/vendeg")
+@app.post("/vendeg", tags=["Vendég", "Create"])
 def vendeg_create(vendeg: schema_vendeg.VendegCreate, db: Session = Depends(get_db)):
     return crud_vendeg.vendeg_create(vendeg, db)
 
-@app.get("/vendeg")
+@app.get("/vendeg", tags=["Vendég", "Read"])
 def vendeg_list(db: Session = Depends(get_db)):
     return crud_vendeg.vendeg_list(db)
 
-@app.get("/vendeg/email/{email}")
+@app.put("/vendeg/{email}", tags=["Vendég", "Update"])
+def vendeg_update(email: str, vendeg: schema_vendeg.VendegCreate, db: Session = Depends(get_db)):
+    return crud_vendeg.vendeg_update(email, vendeg, db)
+
+@app.delete("/vendeg/{email}", tags=["Vendég", "Delete"])
+def vendeg_delete(email: str, db: Session = Depends(get_db)):
+    return crud_vendeg.vendeg_delete(email, db)
+
+@app.get("/vendeg/email/{email}", tags=["Vendég", "Read"])
 def vendeg_by_email(email: str, db: Session = Depends(get_db)):
     return crud_vendeg.vendeg_by_email(email, db)
 
-@app.get("/vendeg/nev/{nev}")
+@app.get("/vendeg/nev/{nev}", tags=["Vendég", "Read"])
 def vendeg_by_nev(nev: str, db: Session = Depends(get_db)):
     return crud_vendeg.vendeg_by_nev(nev, db)
 
-@app.get("/vendeg/datum/{datum}")
+@app.get("/vendeg/datum/{datum}", tags=["Vendég", "Read"])
 def vendeg_by_datum(datum: str, db: Session = Depends(get_db)):
     return crud_vendeg.vendeg_by_datum(datum, db)
 
-@app.get("/vendeg/fiatalabb/{ev}")
+@app.get("/vendeg/fiatalabb/{ev}", tags=["Vendég", "Read"])
 def vendeg_fiatalabb(ev: int, db: Session = Depends(get_db)):
     return crud_vendeg.vendeg_fiatalabb(ev, db)
 
-@app.get("/vendeg/idosebb/{ev}")
+@app.get("/vendeg/idosebb/{ev}", tags=["Vendég", "Read"])
 def vendeg_idosebb(ev: int, db: Session = Depends(get_db)):
     return crud_vendeg.vendeg_idosebb(ev, db)
 
 # Felhasznalo--------------------------------------------------------------------------------------
 
-@app.post("/felhasznalo")
+@app.post("/felhasznalo", tags=["Felhasználó", "Create"])
 def felhasznalo_create(felhasznalo: schema_felhasznalo.FelhasznaloCreate, db: Session = Depends(get_db)):
     return crud_felhasznalo.felhasznalo_create(felhasznalo, db)
 
-@app.post("/felhasznalo/login")
+@app.get("/felhasznalo", tags=["Felhasználó", "Read"])
+def felhasznalo_list(db: Session = Depends(get_db)):
+    return crud_felhasznalo.felhasznalo_list(db)
+
+@app.put("/felhasznalo/{felhasznalonev}", tags=["Felhasználó", "Update"])
+def felhasznalo_update(felhasznalonev: str, felhasznalo: schema_felhasznalo.FelhasznaloCreate, db: Session = Depends(get_db)):
+    return crud_felhasznalo.felhasznalo_update(felhasznalonev, felhasznalo, db)
+
+@app.delete("/felhasznalo/{felhasznalonev}", tags=["Felhasználó", "Delete"])
+def felhasznalo_delete(felhasznalonev: str, db: Session = Depends(get_db)):
+    return crud_felhasznalo.felhasznalo_delete(felhasznalonev, db)
+
+@app.post("/felhasznalo/login", tags=["Felhasználó", "Create"])
 def felhasznalo_login(felhasznalonev: str, jelszo: str, db: Session = Depends(get_db)):
     return crud_felhasznalo.felhasznalo_login(felhasznalonev, jelszo, db)
 
+
+
 # Foglalas--------------------------------------------------------------------------------------
 
-@app.post("/foglalas")
+@app.post("/foglalas", tags=["Foglalás", "Create"])
 def foglalas_create(foglalas: schema_foglalas.FoglalasCreate, db: Session = Depends(get_db)):
     return crud_foglalas.foglalas_create(foglalas, db)
 
-@app.get("/foglalas")
+@app.get("/foglalas", tags=["Foglalás", "Read"])
 def foglalas_list(db: Session = Depends(get_db)):
     return crud_foglalas.foglalas_list(db)
 
+@app.put("/foglalas/{email}", tags=["Foglalás", "Update"])
+def foglalas_update(email: str, foglalas: schema_foglalas.FoglalasCreate, db: Session = Depends(get_db)):
+    return crud_foglalas.foglalas_update(email, foglalas, db)
+
+@app.delete("/foglalas/{email}", tags=["Foglalás", "Delete"])
+def foglalas_delete(email: str, db: Session = Depends(get_db)):
+    return crud_foglalas.foglalas_delete(email, db)
+
 # Kezeli---------------------------------------------------------------------------------------
 
-@app.post("/kezeli")
+@app.post("/kezeli", tags=["Kezeli", "Create"])
 def kezeli_create(kezeli: schema_kezeli.KezeliCreate, db: Session = Depends(get_db)):
     return crud_kezeli.kezeli_create(kezeli, db)
 
-@app.get("/kezeli")
+@app.get("/kezeli", tags=["Kezeli", "Read"])
 def kezeli_list(db: Session = Depends(get_db)):
     return crud_kezeli.kezeli_list(db)
 
-@app.get("/kezeli/felhasznalonev/{felhasznalonev}")
+@app.get("/kezeli/felhasznalonev/{felhasznalonev}", tags=["Kezeli", "Read"])
 def kezeli_by_felhasznalonev(felhasznalonev: str, db: Session = Depends(get_db)):
     return crud_kezeli.kezeli_by_felhasznalonev(felhasznalonev, db)
 
 # Szobaja---------------------------------------------------------------------------------------
 
-@app.post("/szobaja")
+@app.post("/szobaja", tags=["Szobája", "Create"])
 def szobaja_create(szobaja: schema_szobaja.SzobajaCreate, db: Session = Depends(get_db)):
     return crud_szobaja.szobaja_create(szobaja, db)
 
-@app.get("/szobaja")
+@app.get("/szobaja", tags=["Szobája", "Read"])
 def szobaja_list(db: Session = Depends(get_db)):
     return crud_szobaja.szobaja_list(db)

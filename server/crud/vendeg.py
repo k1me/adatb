@@ -14,6 +14,29 @@ def vendeg_create(vendeg: schema_vendeg.VendegCreate, db: Session):
 def vendeg_list(db: Session):
     return db.query(model_vendeg.Vendeg).all()
 
+def vendeg_delete(email: str, db: Session):
+    db_vendeg = db.query(model_vendeg.Vendeg).filter(model_vendeg.Vendeg.email == email).first()
+    if db_vendeg is None:
+        raise HTTPException(status_code=404, detail="Nincs ilyen vendeg")
+    db.delete(db_vendeg)
+    db.commit()
+    return db_vendeg
+
+def vendeg_update(email: str, vendeg: schema_vendeg.VendegCreate, db: Session):
+    db_vendeg = db.query(model_vendeg.Vendeg).filter(model_vendeg.Vendeg.email == email).first()
+    if not db_vendeg:
+        raise HTTPException(status_code=404, detail="Nincs ilyen vendeg")
+    
+    if vendeg.nev is not None:
+        db_vendeg.nev = vendeg.nev
+    if vendeg.telefonszam is not None:
+        db_vendeg.telefonszam = vendeg.telefonszam
+    if vendeg.szuletesi_datum is not None:
+        db_vendeg.szuletesi_datum = vendeg.szuletesi_datum
+    
+    db.commit()
+    return db_vendeg
+
 def vendeg_by_email(email: str, db: Session):
     db_vendeg = db.query(model_vendeg.Vendeg).filter(model_vendeg.Vendeg.email == email).first()
     if db_vendeg is None:
