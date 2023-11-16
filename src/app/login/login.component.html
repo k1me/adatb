@@ -1,13 +1,15 @@
-<div class="login-container">
+<div class="wrapper">
+  <div class="login-container">
     <h2>Login</h2>
     <form>
       <label for="username">Username:</label>
       <input type="text" id="felhasznalonev" name="felhasznalonev" [(ngModel)]="felhasznalonev" required>
-  
       <label for="password">Password:</label>
       <input type="password" id="jelszo" name="jelszo" [(ngModel)]="jelszo" required>
-  
-      <button type="button" (click)="login()">Login</button>
-      <button type="button" (click)=register()>Regisztráció</button>
+      <div class="button-container">
+        <button type="button" (click)="login()">Login</button>
+        <button type="button" (click)=register()>Regisztráció</button>
+      </div>
     </form>
   </div>
+</div>

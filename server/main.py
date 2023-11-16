@@ -134,7 +134,7 @@ def vendeg_idosebb(ev: int, db: Session = Depends(get_db)):
 
 # Felhasznalo--------------------------------------------------------------------------------------
 
-@app.post("/felhasznalo", tags=["Felhasználó", "Create"])
+@app.post("/felhasznalo/register", tags=["Felhasználó", "Create"])
 def felhasznalo_create(felhasznalo: schema_felhasznalo.FelhasznaloCreate, db: Session = Depends(get_db)):
     return crud_felhasznalo.felhasznalo_create(felhasznalo, db)
 
