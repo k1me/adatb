@@ -35,10 +35,10 @@ def felhasznalo_update(felhasznalonev: str, felhasznalo: schema_felhasznalo.Felh
     db.commit()
     return db_felhasznalo
 
-def felhasznalo_login(felhasznalonev: str, jelszo: str, db: Session):
-    db_felhasznalo = db.query(model_felhasznalo.Felhasznalo).filter(model_felhasznalo.Felhasznalo.felhasznalonev == felhasznalonev).first()
+def felhasznalo_login(felhasznalo: schema_felhasznalo.Bejelentkezes, db: Session):
+    db_felhasznalo = db.query(model_felhasznalo.Felhasznalo).filter(model_felhasznalo.Felhasznalo.felhasznalonev == felhasznalo.felhasznalonev).first()
     if db_felhasznalo is None:
         raise HTTPException(status_code=404, detail="Nincs ilyen felhasznalo")
-    if db_felhasznalo.jelszo != jelszo:
+    if db_felhasznalo.jelszo != felhasznalo.jelszo:
         raise HTTPException(status_code=404, detail="Hibas jelszo")
     return db_felhasznalo

@@ -8,6 +8,8 @@ import { LoginComponent } from './login/login.component';
 import { GuestListComponent } from './guest-list/guest-list.component';
 import { ReservationComponent } from './reservation/reservation.component';
 import { RoomTypeComponent } from './room-type/room-type.component';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { RoomTypeComponent } from './room-type/room-type.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

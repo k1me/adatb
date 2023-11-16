@@ -29,6 +29,16 @@ model_szoba.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 def get_db():
     db = SessionLocal()
     try:
@@ -141,8 +151,8 @@ def felhasznalo_delete(felhasznalonev: str, db: Session = Depends(get_db)):
     return crud_felhasznalo.felhasznalo_delete(felhasznalonev, db)
 
 @app.post("/felhasznalo/login", tags=["Felhasználó", "Create"])
-def felhasznalo_login(felhasznalonev: str, jelszo: str, db: Session = Depends(get_db)):
-    return crud_felhasznalo.felhasznalo_login(felhasznalonev, jelszo, db)
+def felhasznalo_login(felhasznalo: schema_felhasznalo.Bejelentkezes, db: Session = Depends(get_db)):
+    return crud_felhasznalo.felhasznalo_login(felhasznalo, db)
 
 
 

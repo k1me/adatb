@@ -6,11 +6,18 @@ class FelhasznaloCreate(BaseModel):
     jelszo: str
     
     class Config:
-        orm_mode = True
-        
+        from_attributes = True
+
+class Bejelentkezes(BaseModel):
+    felhasznalonev: str
+    jelszo: str
+    
+    class Config:
+        from_attributes = True
+    
 class Felhasznalo(BaseModel):
     felhasznalonev: str
     nev: str
     
     class Config:
-        orm_mode = True
+        from_attributes = True
