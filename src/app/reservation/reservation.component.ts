@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ReservationService } from '../services/reservation.service';
 
 @Component({
   selector: 'app-reservation',
@@ -6,5 +7,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./reservation.component.scss']
 })
 export class ReservationComponent {
+  reservations: any[] = [];
 
+  constructor(private reservationService: ReservationService) {}
+
+  ngOnInit(): void {
+    this.reservationService.getReservations().subscribe(reservations => {
+      this.reservations = reservations;
+    });
+  }
 }

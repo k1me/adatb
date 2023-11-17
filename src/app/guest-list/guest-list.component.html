@@ -1,1 +1,19 @@
-<p>guest-list works!</p>
+<h1>Felhasználók</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Név</th>
+            <th>Telefonszám</th>
+            <th>Születési dátum</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let guest of guests">
+            <td>{{ guest.email }}</td>
+            <td>{{ guest.nev }}</td>
+            <td>{{ guest.telefonszam }}</td>
+            <td>{{ guest.szuletesi_datum }}</td>
+        </tr>
+    </tbody>
+</table>

@@ -1,1 +1,34 @@
-<p>room-type works!</p>
+<h1>Szobák</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Típus</th>
+            <th>Szobaszám</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let room of rooms">
+            <td>{{ room.megnevezes }}</td>
+            <td>{{ room.szobaszam }}</td>
+        </tr>
+    </tbody>
+</table>
+<h1>Szobatípusok</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Név</th>
+            <th>Telefonszám</th>
+            <th>Születési dátum</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let roomType of roomTypes">
+            <td>{{ roomType.megnevezes }}</td>
+            <td>{{ roomType.napi_ar }}</td>
+            <td>{{ roomType.fekvohelyek_szama }}</td>
+            <td>{{ roomType.leiras }}</td>
+        </tr>
+    </tbody>
+</table>

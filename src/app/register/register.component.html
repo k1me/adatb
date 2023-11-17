@@ -1,18 +1,18 @@
 <div class="register-container">
-    <h2>Registration</h2>
+    <h2>Regisztráció</h2>
     <form (ngSubmit)="register()">
-      <label for="username">Username:</label>
+      <label for="username">Felhasználónév:</label>
       <input type="text" id="felhasznalonev" name="felhasznalonev" [(ngModel)]="felhasznalo.felhasznalonev" required>
   
-      <label for="name">Name:</label>
+      <label for="name">Név:</label>
       <input type="text" id="nev" name="nev" [(ngModel)]="felhasznalo.nev" required>
   
-      <label for="password">Password:</label>
+      <label for="password">Jelszó:</label>
       <input type="password" id="jelszo" name="jelszo" [(ngModel)]="felhasznalo.jelszo" required>
   
-      <label for="confirmPassword">Confirm Password:</label>
+      <label for="confirmPassword">Jelszó újra:</label>
       <input type="password" id="confirmPassword" name="confirmPassword" [(ngModel)]="confirmPassword" required>
   
-      <button type="submit">Register</button>
+      <button type="submit">Regisztráció</button>
     </form>
   </div>

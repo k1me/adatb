@@ -4,12 +4,14 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class GuestService {
+export class ReservationService {
   private apiUrl = 'http://localhost:8000';
 
   constructor(private http: HttpClient) {}
 
-  getUsers() {
-    return this.http.get<any[]>(this.apiUrl + '/vendegek');
+  getReservations() {
+    return this.http.get<any[]>(this.apiUrl + '/foglalasok');
   }
+
+  // További funkciók implementálása (szerkesztés, törlés stb.)
 }

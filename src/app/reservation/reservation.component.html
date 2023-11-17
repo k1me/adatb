@@ -1,1 +1,19 @@
-<p>reservation works!</p>
+<h1>Foglalások</h1>
+<table>
+  <thead>
+      <tr>
+          <th>Felhasználónév</th>
+          <th>Mettől</th>
+          <th>Meddig</th>
+          <th>Fizetendő</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let reservation of reservations">
+          <td>{{ reservation.email }}</td>
+          <td>{{ reservation.mettol }}</td>
+          <td>{{ reservation.meddig }}</td>
+          <td>{{ reservation.fizetendo }} Ft</td>
+      </tr>
+  </tbody>
+</table>

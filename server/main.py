@@ -52,7 +52,7 @@ def get_db():
 def szobatipus_create(szobatipus: schema_szobatipus.SzobaTipusCreate, db: Session = Depends(get_db)):
     return crud_szobatipus.szobatipus_create(szobatipus, db)
 
-@app.get("/szobatipus", tags=["Szobatipus", "Read"])
+@app.get("/szobatipusok", tags=["Szobatipus", "Read"])
 def szobatipus_list(db: Session = Depends(get_db)):
     return crud_szobatipus.szobatipus_list(db)
 
@@ -74,7 +74,7 @@ def szobatipus_by_megnevezes(megnevezes: str, db: Session = Depends(get_db)):
 def szoba_create(szoba: schema_szoba.SzobaCreate, db: Session = Depends(get_db)):
     return crud_szoba.szoba_create(szoba, db)
 
-@app.get("/szoba", tags=["Szoba", "Read"])
+@app.get("/szobak", tags=["Szoba", "Read"])
 def szoba_list(db: Session = Depends(get_db)):
     return crud_szoba.szoba_list(db)
 
@@ -100,7 +100,7 @@ def szoba_by_megnevezes(megnevezes: str, db: Session = Depends(get_db)):
 def vendeg_create(vendeg: schema_vendeg.VendegCreate, db: Session = Depends(get_db)):
     return crud_vendeg.vendeg_create(vendeg, db)
 
-@app.get("/vendeg", tags=["Vendég", "Read"])
+@app.get("/vendegek", tags=["Vendég", "Read"])
 def vendeg_list(db: Session = Depends(get_db)):
     return crud_vendeg.vendeg_list(db)
 
@@ -138,7 +138,7 @@ def vendeg_idosebb(ev: int, db: Session = Depends(get_db)):
 def felhasznalo_create(felhasznalo: schema_felhasznalo.FelhasznaloCreate, db: Session = Depends(get_db)):
     return crud_felhasznalo.felhasznalo_create(felhasznalo, db)
 
-@app.get("/felhasznalo", tags=["Felhasználó", "Read"])
+@app.get("/felhasznalok", tags=["Felhasználó", "Read"])
 def felhasznalo_list(db: Session = Depends(get_db)):
     return crud_felhasznalo.felhasznalo_list(db)
 
@@ -162,7 +162,7 @@ def felhasznalo_login(felhasznalo: schema_felhasznalo.Bejelentkezes, db: Session
 def foglalas_create(foglalas: schema_foglalas.FoglalasCreate, db: Session = Depends(get_db)):
     return crud_foglalas.foglalas_create(foglalas, db)
 
-@app.get("/foglalas", tags=["Foglalás", "Read"])
+@app.get("/foglalasok", tags=["Foglalás", "Read"])
 def foglalas_list(db: Session = Depends(get_db)):
     return crud_foglalas.foglalas_list(db)
 

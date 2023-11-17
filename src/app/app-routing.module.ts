@@ -2,12 +2,20 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { AppComponent } from './app.component';
+import { HomeComponent } from './home/home.component';
+import { GuestListComponent } from './guest-list/guest-list.component';
+import { ReservationComponent } from './reservation/reservation.component';
+import { RoomTypeComponent } from './room-type/room-type.component';
 
 const routes: Routes = [
   { path:'login', component: LoginComponent },
   { path:'register', component: RegisterComponent },
-  { path:'home', component: AppComponent },
+  { path:'home', component: HomeComponent },
+  { path: 'guests', component: GuestListComponent },
+  { path: 'guests/:id', component: GuestListComponent },
+  { path: 'reservations', component: ReservationComponent},
+  { path: 'reservations/:id', component: ReservationComponent},
+  { path: 'rooms', component: RoomTypeComponent},
   { path: '', redirectTo: '/login', pathMatch: 'full' }
 ];
 
