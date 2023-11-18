@@ -13,5 +13,7 @@ export class ReservationService {
     return this.http.get<any[]>(this.apiUrl + '/foglalasok');
   }
 
-  // További funkciók implementálása (szerkesztés, törlés stb.)
+  addReservation(reservation: any) {
+    return this.http.post<any>(this.apiUrl + '/foglalasok', reservation);
+  }
 }

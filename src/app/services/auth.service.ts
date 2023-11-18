@@ -18,7 +18,7 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.removeItem('token');
+    localStorage.removeItem('loginToken');
     this.loggedInUser = false;
   }
 
@@ -28,6 +28,11 @@ export class AuthService {
   }
 
   isLoggedIn() {
-    return this.loggedInUser;
+    return localStorage.getItem('loginToken') !== null;
+  }
+
+  getUser(felhasznalonev: string): Observable<any> {
+    const url = `${this.baseUrl}/felhasznalo/${felhasznalonev}`;
+    return this.http.get(url);
   }
 }

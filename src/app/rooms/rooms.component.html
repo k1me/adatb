@@ -1,0 +1,14 @@
+<table>
+    <thead>
+        <tr>
+            <th>Típus</th>
+            <th>Szobaszám</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let room of rooms">
+            <td>{{ room.megnevezes }}</td>
+            <td>{{ room.szobaszam }}</td>
+        </tr>
+    </tbody>
+</table>

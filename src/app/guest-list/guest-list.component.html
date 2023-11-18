@@ -1,19 +1,41 @@
-<h1>Felhasználók</h1>
-<table>
-    <thead>
-        <tr>
-            <th>Email</th>
-            <th>Név</th>
-            <th>Telefonszám</th>
-            <th>Születési dátum</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let guest of guests">
-            <td>{{ guest.email }}</td>
-            <td>{{ guest.nev }}</td>
-            <td>{{ guest.telefonszam }}</td>
-            <td>{{ guest.szuletesi_datum }}</td>
-        </tr>
-    </tbody>
-</table>
+<form #newGuestForm="ngForm" (ngSubmit)="addNewGuest()">
+    <table>
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Név</th>
+                <th>Telefonszám</th>
+                <th>Születési dátum</th>
+                <th>Művelet</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <input type="email" [(ngModel)]="newGuest.email" name="email" required>
+                </td>
+                <td>
+                    <input type="text" [(ngModel)]="newGuest.nev" name="nev" required>
+                </td>
+                <td>
+                    <input type="text" [(ngModel)]="newGuest.telefonszam" name="telefonszam" required>
+                </td>
+                <td>
+                    <input type="date" [(ngModel)]="newGuest.szuletesi_datum" name="szuletesi_datum" required>
+                </td>
+                <td>
+                    <button type="submit">Felvisz</button>
+                </td>
+            </tr>
+            <tr *ngFor="let guest of guests">
+                <td>{{ guest.email }}</td>
+                <td>{{ guest.nev }}</td>
+                <td>{{ guest.telefonszam }}</td>
+                <td>{{ guest.szuletesi_datum }}</td>
+                <td>
+                    <button type="button" (click)="deleteGuest(guest.email)"><mat-icon>delete</mat-icon></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</form>

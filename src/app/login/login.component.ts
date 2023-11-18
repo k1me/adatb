@@ -24,7 +24,7 @@ export class LoginComponent {
       .pipe(
         tap(response => {
           console.log('Login successful', response);
-          localStorage.setItem('token', response.token);
+          localStorage.setItem('loginToken', response.felhasznalonev);
           this.router.navigate(['/home']);
         })
       )

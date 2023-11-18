@@ -56,3 +56,11 @@ def felhasznalo_login(felhasznalo: schema_felhasznalo.Bejelentkezes, db: Session
         raise HTTPException(status_code=404, detail="Hibas jelszo")
 
     return db_felhasznalo
+
+def felhasznalo_by_felhasznalonev(felhasznalonev: str, db: Session):
+    db_felhasznalo = db.query(model_felhasznalo.Felhasznalo).filter(model_felhasznalo.Felhasznalo.felhasznalonev == felhasznalonev).first()
+    
+    if db_felhasznalo is None:
+        raise HTTPException(status_code=404, detail="Nincs ilyen felhasznalo")
+    
+    return db_felhasznalo

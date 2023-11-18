@@ -1,37 +1,9 @@
-body {
-    margin: 0;
-    padding: 20px;
-    box-sizing: border-box;
+h1 {
+  text-align: center;
+  margin-top: 50px;
+  font-size: 3rem;
+
+  b {
+    color: #940094;
   }
-  
-  h1 {
-    color: #333;
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-  }
-  
-  th, td {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-  }
-  
-  th {
-    background-color: #f2f2f2;
-  }
-  
-  tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-  
-  tbody tr:hover {
-    background-color: #e6f7ff;
-  }
-  
+}

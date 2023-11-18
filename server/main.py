@@ -154,6 +154,10 @@ def felhasznalo_delete(felhasznalonev: str, db: Session = Depends(get_db)):
 def felhasznalo_login(felhasznalo: schema_felhasznalo.Bejelentkezes, db: Session = Depends(get_db)):
     return crud_felhasznalo.felhasznalo_login(felhasznalo, db)
 
+@app.get('/felhasznalo/{felhasznalonev}', tags=["Felhasználó", "Read"])
+def felhasznalo_by_felhasznalonev(felhasznalonev: str, db: Session = Depends(get_db)):
+    return crud_felhasznalo.felhasznalo_by_felhasznalonev(felhasznalonev, db)
+
 
 
 # Foglalas--------------------------------------------------------------------------------------

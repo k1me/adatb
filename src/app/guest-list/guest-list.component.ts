@@ -8,12 +8,40 @@ import { GuestService } from '../services/guest.service';
 })
 export class GuestListComponent {
   guests: any[] = [];
+  newGuest = {
+    email: '',
+    nev: '',
+    telefonszam: '',
+    szuletesi_datum: new Date()
+  };
 
   constructor(private guestService: GuestService) {}
 
   ngOnInit(): void {
-    this.guestService.getUsers().subscribe(users => {
+    this.guestService.getGuests().subscribe(users => {
       this.guests = users;
     });
   }
+
+  loadGuests(): void {
+    this.guestService.getGuests().subscribe(guests => this.guests = guests);
+  }
+
+  addNewGuest(): void {
+    this.guestService.addGuest(this.newGuest).subscribe(() => {
+      this.newGuest = {
+        email: '',
+        nev: '',
+        telefonszam: '',
+        szuletesi_datum: new Date()
+      };
+    });
+  }
+
+  deleteGuest(email: number): void {
+    this.guestService.deleteGuest(email).subscribe(() => {
+      this.loadGuests();
+    });
+  }
+
 }

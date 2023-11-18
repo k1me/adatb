@@ -17,6 +17,12 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatTableModule } from '@angular/material/table';
+import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { RoomsComponent } from './rooms/rooms.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -29,6 +35,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     RoomTypeComponent,
     HomeComponent,
     NavbarComponent,
+    RoomsComponent,
 
   ],
   imports: [
@@ -39,7 +46,11 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatToolbarModule,
     BrowserAnimationsModule,
     MatIconModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatTableModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

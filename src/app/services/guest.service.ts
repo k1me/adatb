@@ -9,7 +9,15 @@ export class GuestService {
 
   constructor(private http: HttpClient) {}
 
-  getUsers() {
+  getGuests() {
     return this.http.get<any[]>(this.apiUrl + '/vendegek');
+  }
+
+  addGuest(guest: any) {
+    return this.http.post(this.apiUrl + '/vendeg', guest);
+  }
+
+  deleteGuest(email: number) {
+    return this.http.delete(this.apiUrl + '/vendeg/' + email);
   }
 }
