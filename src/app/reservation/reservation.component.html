@@ -1,61 +1,90 @@
 <form #newReservationForm="ngForm" (ngSubmit)="addNewReservation()">
     <table>
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Mettől</th>
+                <th>Meddig</th>
+                <th>Szobatípus</th>
+                <th>Szobaszám</th>
+                <th>Új szoba</th>
+                <th>Mentés</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <select name="email" id="email" [(ngModel)]="selectedEmail">
+                        <option *ngFor="let guest of guests" [value]="guest.email">
+                            {{ guest.email }}
+                        </option>
+                    </select>
+                </td>
+                <td>
+                    <input type="date" name="mettol" id="mettol" required [(ngModel)]="mettol">
+                </td>
+                <td>
+                    <input type="date" name="meddig" id="meddig" required [(ngModel)]="meddig">
+                </td>
+                <td>
+                    <select name="szobatipus" id="szobatipus" [(ngModel)]="selectedRoomType"
+                        (change)="updateSelectedRoomType(selectedRoomType)">
+                        <option *ngFor="let roomType of roomTypes" [value]="roomType.megnevezes">
+                            {{ roomType.megnevezes }}
+                        </option>
+                    </select>
+                </td>
+                <td>
+                    <select name="szobaszam" id="szobaszam" [(ngModel)]="selectedRoomNumber"
+                        (change)="updateSelectedRoomNumber(selectedRoomNumber)">
+                        <option *ngFor="let room of restOfTheRooms" [value]="room.szobaszam">
+                            {{ room.szobaszam }}
+                        </option>
+                    </select>
+                </td>
+                <td>
+                    <button type="button" (click)="addRoomToList()">+</button>
+                </td>
+                <td>
+                    <button type="submit">Mentés</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+<table *ngIf="selectedRooms.length > 0">
+    <thead>
+        <tr>
+            <th>Szobatípus</th>
+            <th>Szobaszám</th>
+            <th>Törlés</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let room of selectedRooms">
+            <td>{{ room.megnevezes }}</td>
+            <td>{{ room.szobaszam }}</td>
+            <td>
+                <button type="button" (click)="deleteRoomFromList(room)">-</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<table>
     <thead>
         <tr>
             <th>Email</th>
             <th>Mettől</th>
             <th>Meddig</th>
-            <th>Szobatípus</th>
-            <th>Szobaszám</th>
-            <th>Új sor</th>
-            <th>Mentés</th>
+            <th>Fizetendő</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>
-                <select name="email" id="email">
-                    <option *ngFor="let guest of guests" [value]="guest.email">
-                        {{ guest.email }}
-                    </option>
-                </select>
-            </td>
-            <td>
-                <input type="date" name="mettol" id="mettol" required>
-            </td>
-            <td>
-                <input type="date" name="meddig" id="meddig" required>
-            </td>
-            <td>
-                <select name="szobatipus" id="szobatipus" [(ngModel)]="selectedRoomType" (change)="updateSelectedRoomType(selectedRoomType)">
-                    <option *ngFor="let roomType of roomTypes" [value]="roomType.megnevezes">
-                        {{ roomType.megnevezes }}
-                    </option>
-                </select>
-            </td>
-            <td>
-                <select name="szobaszam" id="szobaszam">
-                    <option *ngFor="let room of restOfTheRooms" value="room.szobaszam">
-                        {{ room.szobaszam }}
-                    </option>
-                </select>
-            </td>
-            <td>
-                <button type="button">+</button>
-            </td>
-            <td>
-                <button type="submit">Mentés</button>
-            </td>
+        <tr *ngFor="let reservation of reservations">
+            <td>{{ reservation.email }}</td>
+            <td>{{ reservation.mettol }}</td>
+            <td>{{ reservation.meddig }}</td>
+            <td>{{ reservation.fizetendo }} Ft</td>
         </tr>
-        <!--
-
-            <tr *ngFor="let reservation of reservations">
-                <td>{{ reservation.email }}</td>
-                <td>{{ reservation.mettol }}</td>
-                <td>{{ reservation.meddig }}</td>
-                <td>{{ reservation.fizetendo }} Ft</td>
-            </tr>
-        -->
     </tbody>
-    </table>
-</form>
+</table>

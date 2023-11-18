@@ -18,7 +18,7 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.removeItem('loginToken');
+    sessionStorage.removeItem('loginToken');
     this.loggedInUser = false;
   }
 
@@ -28,7 +28,7 @@ export class AuthService {
   }
 
   isLoggedIn() {
-    return localStorage.getItem('loginToken') !== null;
+    return sessionStorage.getItem('loginToken') !== null;
   }
 
   getUser(felhasznalonev: string): Observable<any> {

@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
   constructor(private guestService: GuestService, private reservationService: ReservationService, private authService: AuthService) {}
 
   getToken(): null | string {
-    return localStorage.getItem('loginToken');
+    return sessionStorage.getItem('loginToken');
   }
   
   ngOnInit(): void {

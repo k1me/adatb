@@ -23,8 +23,7 @@ export class LoginComponent {
     this.authService.login({ felhasznalonev: this.felhasznalonev, jelszo: this.jelszo })
       .pipe(
         tap(response => {
-          console.log('Login successful', response);
-          localStorage.setItem('loginToken', response.felhasznalonev);
+          sessionStorage.setItem('loginToken', response.felhasznalonev);
           this.router.navigate(['/home']);
         })
       )
