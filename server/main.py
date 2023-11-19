@@ -57,8 +57,8 @@ def szobatipus_list(db: Session = Depends(get_db)):
     return crud_szobatipus.szobatipus_list(db)
 
 @app.put("/szobatipus/{megnevezes}", tags=["Szobatipus", "Update"])
-def szobatipus_update(megnevezes: str, szobatipus: schema_szobatipus.SzobaTipusCreate, db: Session = Depends(get_db)):
-    return crud_szobatipus.szobatipus_update(megnevezes, szobatipus, db)
+def szobatipus_update(szobatipus: schema_szobatipus.SzobaTipusCreate, db: Session = Depends(get_db)):
+    return crud_szobatipus.szobatipus_update(szobatipus, db)
 
 @app.delete("/szobatipus/{megnevezes}", tags=["Szobatipus", "Delete"])
 def szobatipus_delete(megnevezes: str, db: Session = Depends(get_db)):

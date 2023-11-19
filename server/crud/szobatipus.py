@@ -28,8 +28,8 @@ def szobatipus_delete(megnevezes: str, db: Session):
     db.commit()
     return db_szobatipus
 
-def szobatipus_update(megnevezes: str, szobatipus: schema_szobatipus.SzobaTipusCreate, db: Session):
-    db_szobatipus = db.query(model_szobatipus.SzobaTipus).filter(model_szobatipus.SzobaTipus.megnevezes == megnevezes).first()
+def szobatipus_update(szobatipus: schema_szobatipus.SzobaTipusCreate, db: Session):
+    db_szobatipus = db.query(model_szobatipus.SzobaTipus).filter(model_szobatipus.SzobaTipus.megnevezes == szobatipus.megnevezes).first()
     if not db_szobatipus:
         raise HTTPException(status_code=404, detail="Nincs ilyen szobatipus")
     

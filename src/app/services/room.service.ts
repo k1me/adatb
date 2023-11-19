@@ -23,4 +23,8 @@ export class RoomService {
     return this.http.get<any>(this.apiUrl + '/szobatipus/' + roomType);
   }
 
+  updateRoomType(roomType: any, napi_ar: number) {
+    roomType.napi_ar = napi_ar;
+    return this.http.put(this.apiUrl + '/szobatipus/' + roomType.megnevezes, roomType);
+  }
 }

@@ -5,14 +5,19 @@
             <th>Név</th>
             <th>Telefonszám</th>
             <th>Születési dátum</th>
+            <th>Mentés</th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let roomType of roomTypes">
+        <tr *ngFor="let roomType of roomTypes; let i = index">
             <td>{{ roomType.megnevezes }}</td>
-            <td>{{ roomType.napi_ar }}</td>
+            <td><input type="text" placeholder="{{ roomType.napi_ar }}" name="napi_ar_{{ i }}"
+                    [(ngModel)]="roomType['napiAr_' + i]"></td>
             <td>{{ roomType.fekvohelyek_szama }}</td>
             <td>{{ roomType.leiras }}</td>
+            <td><button type="submit"
+                    (click)="updateDailyPrice(roomType, roomType['napiAr_' + i])"><mat-icon>save</mat-icon></button>
+            </td>
         </tr>
     </tbody>
 </table>
