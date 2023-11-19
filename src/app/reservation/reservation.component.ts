@@ -3,13 +3,14 @@ import { ReservationService } from '../services/reservation.service';
 import { GuestService } from '../services/guest.service';
 import { RoomService } from '../services/room.service';
 import { Room } from '../interfaces/room.interface';
-import { Observable, map } from 'rxjs';
+import { Observable, map, switchMap } from 'rxjs';
 @Component({
   selector: 'app-reservation',
   templateUrl: './reservation.component.html',
   styleUrls: ['./reservation.component.scss']
 })
 export class ReservationComponent {
+
   reservations: any[] = [];
   guests: any[] = [];
   rooms: any[] = [];
@@ -17,11 +18,13 @@ export class ReservationComponent {
   selectedEmail: string = '';
   selectedRoomType: string = '';
   selectedRoomNumber: number = 0;
+  selectedRoomNumbers: number[] = [];
   restOfTheRooms: any[] = [];
   selectedRooms: Room[] = [];
   sumNapiAr: number = 0;
   mettol = new Date();
   meddig = new Date();
+  occupiedRooms: any[] = [];
 
   constructor(private reservationService: ReservationService, private guestService: GuestService, private roomService: RoomService) { }
 
@@ -34,6 +37,7 @@ export class ReservationComponent {
     this.getRoomTypes()
     this.getRooms()
     this.updateRestOfTheRooms()
+    this.updateOccupiedRooms()
   }
 
   reloadPage(): void {
@@ -67,28 +71,34 @@ export class ReservationComponent {
         fizetendo: this.sumNapiAr * (meddigDate.getTime() - mettolDate.getTime()) / (1000 * 60 * 60 * 24)
       };
 
-      this.reservationService.addReservation(reservation).subscribe(() => {
-        const roomInfo = {
-          email: this.selectedEmail,
-          mettol: isoStringMettol,
-          meddig: isoStringMeddig,
-          szobaszam: this.selectedRoomNumber
-        }
+      this.reservationService.addReservation(reservation)
+        .subscribe(() => {
 
-        this.reservationService.updateRoomStatus(roomInfo).subscribe(() => {
-          const handleReservation = {
-            felhasznalonev: sessionStorage.getItem('loginToken'),
+          const roomInfo = {
             email: this.selectedEmail,
             mettol: isoStringMettol,
-            meddig: isoStringMeddig
-          }
+            meddig: isoStringMeddig,
+            szobaszam: this.selectedRoomNumber
+          };
 
-          this.reservationService.handleReservation(handleReservation).subscribe(() => {
-            this.reloadPage();
-          })
-        })
-      })
-    })
+          this.reservationService.updateRoomStatus(roomInfo)
+            .subscribe(() => {
+
+              const handleReservation = {
+                felhasznalonev: sessionStorage.getItem('loginToken'),
+                email: this.selectedEmail,
+                mettol: isoStringMettol,
+                meddig: isoStringMeddig
+              };
+
+              this.reservationService.handleReservation(handleReservation)
+                .subscribe(() => {
+
+                  this.reloadPage();
+                });
+            });
+        });
+    });
   }
 
   getRooms(): void {
@@ -117,6 +127,24 @@ export class ReservationComponent {
 
   updateRestOfTheRooms(): void {
     this.restOfTheRooms = this.rooms.filter(room => room.megnevezes === this.selectedRoomType);
+  
+    this.restOfTheRooms = this.restOfTheRooms.filter(room => {
+      return !this.occupiedRooms.some(occupiedRoom => {
+        const occupiedMettol = new Date(occupiedRoom.mettol);
+        const occupiedMeddig = new Date(occupiedRoom.meddig);
+  
+        const selectedMettol = new Date(this.mettol);
+        const selectedMeddig = new Date(this.meddig);
+  
+        const overlap = (
+          (selectedMettol >= occupiedMettol && selectedMettol <= occupiedMeddig) ||
+          (selectedMeddig >= occupiedMettol && selectedMeddig <= occupiedMeddig) ||
+          (selectedMettol <= occupiedMettol && selectedMeddig >= occupiedMeddig)
+        );
+  
+        return room.szobaszam === occupiedRoom.szobaszam && overlap;
+      });
+    });
   }
 
   updateSelectedRoomNumber(roomNumber: any): void {
@@ -142,5 +170,17 @@ export class ReservationComponent {
     return this.roomService.getRoomPrice(roomType).pipe(
       map(room => room.napi_ar)
     );
+  }
+
+  updateOccupiedRooms(): void {
+    this.reservationService.getOccupiedRooms().subscribe(occupiedRooms => {
+      this.occupiedRooms = occupiedRooms;
+    });
+  }
+
+  deleteReservation(reservation: any): void {
+    this.reservationService.deleteReservation(reservation).subscribe(() => {
+      this.reloadPage();
+    });
   }
 }

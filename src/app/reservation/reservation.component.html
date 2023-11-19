@@ -77,6 +77,7 @@
             <th>Mettől</th>
             <th>Meddig</th>
             <th>Fizetendő</th>
+            <th>Törlés</th>
         </tr>
     </thead>
     <tbody>
@@ -85,6 +86,9 @@
             <td>{{ reservation.mettol }}</td>
             <td>{{ reservation.meddig }}</td>
             <td>{{ reservation.fizetendo }} Ft</td>
+            <td>
+                <button type="button" (click)="deleteReservation(reservation)">-</button>
+            </td>
         </tr>
     </tbody>
 </table>

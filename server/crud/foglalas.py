@@ -2,6 +2,7 @@ from fastapi import HTTPException
 from sqlalchemy.orm import Session
 from models import foglalas as model_foglalas
 from schemas import foglalas as schema_foglalas
+from datetime import datetime
 
 
 def foglalas_create(foglalas: schema_foglalas.FoglalasCreate, db: Session):
@@ -14,8 +15,12 @@ def foglalas_create(foglalas: schema_foglalas.FoglalasCreate, db: Session):
 def foglalas_list(db: Session):
     return db.query(model_foglalas.Foglalas).all()
 
-def foglalas_delete(email: str, db: Session):
-    db_foglalas = db.query(model_foglalas.Foglalas).filter(model_foglalas.Foglalas.email == email).first()
+def foglalas_delete(email: str, mettol: datetime, meddig: datetime, db: Session):
+    db_foglalas = db.query(model_foglalas.Foglalas).filter(
+        model_foglalas.Foglalas.email == email,
+        model_foglalas.Foglalas.mettol == mettol,
+        model_foglalas.Foglalas.meddig == meddig
+    ).first()
     if db_foglalas is None:
         raise HTTPException(status_code=404, detail="Nincs ilyen foglalas")
     db.delete(db_foglalas)

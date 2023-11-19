@@ -24,4 +24,12 @@ export class ReservationService {
   handleReservation(reservation: any) {
     return this.http.post<any>(this.apiUrl + '/kezeli', reservation);
   }
+
+  getOccupiedRooms() {
+    return this.http.get<any[]>(this.apiUrl + '/szobaja');
+  }
+
+  deleteReservation(reservation: any) {
+    return this.http.delete<any>(this.apiUrl + `/foglalas/${reservation.email}/${reservation.mettol}T00:00:00/${reservation.meddig}T00:00:00`);
+  }
 }

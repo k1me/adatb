@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 from fastapi import Depends, FastAPI, HTTPException
 from sqlalchemy.orm import Session
 from database import SessionLocal, engine
@@ -174,9 +174,9 @@ def foglalas_list(db: Session = Depends(get_db)):
 def foglalas_update(email: str, foglalas: schema_foglalas.FoglalasCreate, db: Session = Depends(get_db)):
     return crud_foglalas.foglalas_update(email, foglalas, db)
 
-@app.delete("/foglalas/{email}", tags=["Foglalás", "Delete"])
-def foglalas_delete(email: str, db: Session = Depends(get_db)):
-    return crud_foglalas.foglalas_delete(email, db)
+@app.delete("/foglalas/{email}/{mettol}/{meddig}", tags=["Foglalás", "Delete"])
+def foglalas_delete(email: str, mettol: datetime, meddig: datetime, db: Session = Depends(get_db)):
+    return crud_foglalas.foglalas_delete(email, mettol, meddig, db)
 
 # Kezeli---------------------------------------------------------------------------------------
 
