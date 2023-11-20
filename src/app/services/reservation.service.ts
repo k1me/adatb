@@ -17,8 +17,15 @@ export class ReservationService {
     return this.http.post<any>(this.apiUrl + '/foglalas', reservation);
   }
 
-  updateRoomStatus(roomInfo: any) {
-    return this.http.post<any>(this.apiUrl + '/szobaja', roomInfo);
+  updateRoomStatus(email: string, mettol: any, meddig: any, selectedRooms: any[]) {
+    const adatok = {
+      email: email,
+      mettol: mettol,
+      meddig: meddig,
+      selectedRooms: selectedRooms
+    };
+    console.log(adatok);
+    return this.http.post<any>(this.apiUrl + '/szobaja', adatok);
   }
 
   handleReservation(reservation: any) {

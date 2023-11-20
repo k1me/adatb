@@ -1,3 +1,4 @@
+from typing import List
 from datetime import datetime
 from fastapi import Depends, FastAPI, HTTPException
 from sqlalchemy.orm import Session
@@ -195,8 +196,8 @@ def kezeli_by_felhasznalonev(felhasznalonev: str, db: Session = Depends(get_db))
 # Szobaja---------------------------------------------------------------------------------------
 
 @app.post("/szobaja", tags=["Szobája", "Create"])
-def szobaja_create(szobaja: schema_szobaja.SzobajaCreate, db: Session = Depends(get_db)):
-    return crud_szobaja.szobaja_create(szobaja, db)
+def szobaja_create(altSzobaja: schema_szobaja.SzobajaAltered, db: Session = Depends(get_db)):
+    return crud_szobaja.szobaja_create(altSzobaja, db)
 
 @app.get("/szobaja", tags=["Szobája", "Read"])
 def szobaja_list(db: Session = Depends(get_db)):

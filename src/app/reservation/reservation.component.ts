@@ -74,28 +74,21 @@ export class ReservationComponent {
       this.reservationService.addReservation(reservation)
         .subscribe(() => {
 
-          const roomInfo = {
+          const handleReservation = {
+            felhasznalonev: sessionStorage.getItem('loginToken'),
             email: this.selectedEmail,
             mettol: isoStringMettol,
-            meddig: isoStringMeddig,
-            szobaszam: this.selectedRoomNumber
+            meddig: isoStringMeddig
           };
 
-          this.reservationService.updateRoomStatus(roomInfo)
+          this.reservationService.handleReservation(handleReservation)
             .subscribe(() => {
 
-              const handleReservation = {
-                felhasznalonev: sessionStorage.getItem('loginToken'),
-                email: this.selectedEmail,
-                mettol: isoStringMettol,
-                meddig: isoStringMeddig
-              };
-
-              this.reservationService.handleReservation(handleReservation)
+              this.reservationService.updateRoomStatus(this.selectedEmail, isoStringMettol, isoStringMeddig, this.selectedRooms)
                 .subscribe(() => {
-
                   this.reloadPage();
-                });
+               });
+
             });
         });
     });
@@ -127,21 +120,21 @@ export class ReservationComponent {
 
   updateRestOfTheRooms(): void {
     this.restOfTheRooms = this.rooms.filter(room => room.megnevezes === this.selectedRoomType);
-  
+
     this.restOfTheRooms = this.restOfTheRooms.filter(room => {
       return !this.occupiedRooms.some(occupiedRoom => {
         const occupiedMettol = new Date(occupiedRoom.mettol);
         const occupiedMeddig = new Date(occupiedRoom.meddig);
-  
+
         const selectedMettol = new Date(this.mettol);
         const selectedMeddig = new Date(this.meddig);
-  
+
         const overlap = (
           (selectedMettol >= occupiedMettol && selectedMettol <= occupiedMeddig) ||
           (selectedMeddig >= occupiedMettol && selectedMeddig <= occupiedMeddig) ||
           (selectedMettol <= occupiedMettol && selectedMeddig >= occupiedMeddig)
         );
-  
+
         return room.szobaszam === occupiedRoom.szobaszam && overlap;
       });
     });
@@ -158,6 +151,7 @@ export class ReservationComponent {
         szobaszam: this.selectedRoomNumber,
       };
       this.selectedRooms.push(szoba);
+      console.log(this.selectedRooms);
     });
   }
 
