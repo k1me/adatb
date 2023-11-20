@@ -1,23 +1,41 @@
-<table>
-    <thead>
-        <tr>
-            <th>Email</th>
-            <th>Név</th>
-            <th>Telefonszám</th>
-            <th>Születési dátum</th>
-            <th>Mentés</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let roomType of roomTypes; let i = index">
-            <td>{{ roomType.megnevezes }}</td>
-            <td><input type="text" placeholder="{{ roomType.napi_ar }}" name="napi_ar_{{ i }}"
-                    [(ngModel)]="roomType['napiAr_' + i]"></td>
-            <td>{{ roomType.fekvohelyek_szama }}</td>
-            <td>{{ roomType.leiras }}</td>
-            <td><button type="submit"
-                    (click)="updateDailyPrice(roomType, roomType['napiAr_' + i])"><mat-icon>save</mat-icon></button>
-            </td>
-        </tr>
-    </tbody>
-</table>
+<div class="wrapper">
+    <mat-table [dataSource]="roomTypes">
+        <ng-container matColumnDef="email">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let roomType">{{ roomType.megnevezes }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="nev">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>Napi Ár</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let roomType; let i = index">
+                <mat-form-field appearance="fill">
+                    <input matInput placeholder="{{ roomType.napi_ar }} Ft" name="napi_ar_{{ i }}"
+                        [(ngModel)]="roomType['napiAr_' + i]">
+                </mat-form-field>
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="fekvohelyek_szama">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>Fekvőhelyek száma</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let roomType">{{ roomType.fekvohelyek_szama }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="szuletesiDatum">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>Születési dátum</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let roomType">{{ roomType.leiras }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="mentes">
+            <mat-header-cell mat-header-cell *matHeaderCellDef>Mentés</mat-header-cell>
+            <mat-cell mat-cell *matCellDef="let roomType; let i = index">
+                <button mat-mini-fab color="primary" (click)="updateDailyPrice(roomType, roomType['napiAr_' + i])">
+                    <mat-icon>save</mat-icon>
+                </button>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row  *matHeaderRowDef="['email', 'nev', 'fekvohelyek_szama', 'szuletesiDatum', 'mentes']"></mat-header-row>
+        <mat-row mat-row *matRowDef="let row; columns: ['email', 'nev', 'fekvohelyek_szama', 'szuletesiDatum', 'mentes'];">
+        </mat-row>
+    </mat-table>
+</div>

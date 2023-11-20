@@ -1,67 +1,80 @@
-body {
-    margin: 0;
-    padding: 20px;
-    box-sizing: border-box;
-  }
-  
-  h1 {
-    color: #333;
-  }
-  
-  body {
-    margin: 0;
-    padding: 20px;
-    box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+.form-row {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
 }
 
-table {
-    margin: 0 auto;
-    margin-top: 20px;
-    width: 40%;
-    border-collapse: collapse;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-}
-
-th, td {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-    text-align: center;
-}
-
-th {
-    background-color: #f2f2f2;
-}
-
-tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-tbody tr:hover {
-    background-color: #e6f7ff;
-}
-
-td {
-  padding: 8px;
-
-  input {
-    width: 100%;
-    box-sizing: border-box;
-    border: 1px solid #fff;
-  }
-  input:focus {
-    outline: none;
-    border: 1px solid #fff;
-  }
+mat-form-field {
+  width: 100%;
+  max-width: 200px;
 }
 
 button {
-  width: 100%; 
-  box-sizing: border-box;
+  margin-top: 10px;
+}
+
+.wrapper {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
+mat-table {
+  width: 100%;
+  margin-top: 20px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+
+  mat-header-cell {
+    padding: 12px;
+    text-align: left;
+    font-weight: bold;
+    border-radius: 15px 15px 0 0;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+  }
+
+  mat-cell {
+    padding: 12px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+  }
+
+  mat-header-row {
+    background-color: #666;
+    color: white;
+    border-radius: 15px 15px 0 0;
+  }
+
+  mat-row:nth-child(even) {
+    background-color: #333;
+  }
+
+  mat-row:last-child {
+    border-radius: 0 0 15px 15px;
+
+    mat-cell:last-child {
+      border-radius: 0 0 15px 0;
+    }
+
+    mat-cell:first-child {
+      border-radius: 0 0 0 15px;
+    }
+  }
+
+  mat-row:hover {
+    background-color: #555;
+  }
+
+  button {
+    display: flex;
+    justify-content: center;
+  }
 }

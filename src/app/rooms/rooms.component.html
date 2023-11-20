@@ -1,14 +1,16 @@
-<table>
-    <thead>
-        <tr>
-            <th>Típus</th>
-            <th>Szobaszám</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let room of rooms">
-            <td>{{ room.megnevezes }}</td>
-            <td>{{ room.szobaszam }}</td>
-        </tr>
-    </tbody>
-</table>
+<div class="wrapper">
+    <mat-table [dataSource]="rooms">
+        <ng-container matColumnDef="megnevezes">
+            <mat-header-cell *matHeaderCellDef>Típus</mat-header-cell>
+            <mat-cell *matCellDef="let room">{{ room.megnevezes }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="szobaszam">
+            <mat-header-cell *matHeaderCellDef>Szobaszám</mat-header-cell>
+            <mat-cell *matCellDef="let room">{{ room.szobaszam }}</mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="['megnevezes', 'szobaszam']"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: ['megnevezes', 'szobaszam'];"></mat-row>
+    </mat-table>
+</div>

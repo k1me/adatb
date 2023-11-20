@@ -15,7 +15,6 @@ export class RoomTypeComponent {
   roomForm: FormGroup;
   napi_ar: number = 0;
 
-
   reloadPage(): void {
     window.location.reload();
   }
