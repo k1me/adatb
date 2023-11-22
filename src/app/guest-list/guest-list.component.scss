@@ -1,9 +1,20 @@
 .form-row {
-  margin-top: 20px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 16px;
+}
+
+form {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 20px;
+  color: #ccc
 }
 
 mat-form-field {
@@ -12,7 +23,7 @@ mat-form-field {
 }
 
 button {
-  margin-top: 10px;
+  margin-top: 7px;
 }
 
 .wrapper {
@@ -49,7 +60,7 @@ mat-table {
 
   mat-header-row {
     background-color: #666;
-    color: white;
+    color: #f1f0f0;
     border-radius: 15px 15px 0 0;
   }
 

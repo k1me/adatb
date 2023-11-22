@@ -6,3 +6,4 @@ class FoglalasCreate(BaseModel):
     mettol: date
     meddig: date
     fizetendo: int
+    

@@ -1,8 +1,13 @@
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
-from models import foglalas as model_foglalas
 from schemas import foglalas as schema_foglalas
 from datetime import datetime
+from models import (
+    foglalas as model_foglalas, 
+    szobaja as model_szobaja,
+    szobatipus as model_szobatipusa,
+    szoba as model_szoba
+    )
 
 
 def foglalas_create(foglalas: schema_foglalas.FoglalasCreate, db: Session):
@@ -41,3 +46,31 @@ def foglalas_update(email: str, foglalas: schema_foglalas.FoglalasCreate, db: Se
     
     db.commit()
     return db_foglalas
+
+#Listázza ki táblázatos formában azon foglalások adatait időrendi sorrendben, 
+# amelyek a legalább 3 fekvőhellyel rendelkező szobákra vonatkoznak!
+def foglalas_filtered(db: Session):
+    foglalasok = (
+        db.query(
+            model_szobaja.Szobaja,
+            model_szobatipusa.SzobaTipus.megnevezes.label('szobatipus_megnevezes')
+        )
+        .join(model_szoba.Szoba, model_szoba.Szoba.szobaszam == model_szobaja.Szobaja.szobaszam)
+        .join(model_szobatipusa.SzobaTipus, model_szobatipusa.SzobaTipus.megnevezes == model_szoba.Szoba.megnevezes)
+        .filter(model_szobatipusa.SzobaTipus.fekvohelyek_szama >= 3)
+        .all()
+    )
+
+    foglalasok_formatted = []
+    for foglalas in foglalasok:
+        szobaja, szobatipus_megnevezes = foglalas
+        foglalasok_formatted.append({
+            "email": szobaja.email,
+            "szobaszam": szobaja.szobaszam,
+            "mettol": szobaja.mettol,
+            "meddig": szobaja.meddig,
+            "megnevezes": szobatipus_megnevezes
+        })
+    foglalasok_formatted.sort(key=lambda foglalas: foglalas["mettol"])
+
+    return foglalasok_formatted

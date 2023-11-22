@@ -39,4 +39,8 @@ export class ReservationService {
   deleteReservation(reservation: any) {
     return this.http.delete<any>(this.apiUrl + `/foglalas/${reservation.email}/${reservation.mettol}T00:00:00/${reservation.meddig}T00:00:00`);
   }
+
+  getFilteredReservations() {
+    return this.http.get<any[]>(this.apiUrl + '/foglalasok/szurt_foglalasok');
+  }
 }

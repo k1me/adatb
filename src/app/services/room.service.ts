@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Room } from '../interfaces/room.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -26,5 +25,9 @@ export class RoomService {
   updateRoomType(roomType: any, napi_ar: number) {
     roomType.napi_ar = napi_ar;
     return this.http.put(this.apiUrl + '/szobatipus/' + roomType.megnevezes, roomType);
+  }
+
+  getRoomSummary() {
+    return this.http.get<any[]>(this.apiUrl + '/szobak/darab');
   }
 }

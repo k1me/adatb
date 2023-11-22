@@ -87,13 +87,11 @@ def szoba_update(szobaszam: int, szoba: schema_szoba.SzobaCreate, db: Session = 
 def szoba_delete(szobaszam: int, db: Session = Depends(get_db)):
     return crud_szoba.szoba_delete(szobaszam, db)
 
-@app.get("/szoba/szobaszam/{szobaszam}", tags=["Szoba", "Read"])
-def szoba_by_szobaszam(szobaszam: int, db: Session = Depends(get_db)):
-    return crud_szoba.szoba_by_szobaszam(szobaszam, db)
 
-@app.get("/szoba/megnevezes/{megnevezes}", tags=["Szoba", "Read"])
-def szoba_by_megnevezes(megnevezes: str, db: Session = Depends(get_db)):
-    return crud_szoba.szoba_by_megnevezes(megnevezes, db)
+# Listázza ki táblázatosan, hogy melyik típusú szobából hány darab van a szállodában!
+@app.get("/szobak/darab", tags=["Szoba", "Read"])
+def szobak_count(db: Session = Depends(get_db)):
+    return crud_szoba.szobak_count_by_type(db)
 
 # Vendeg--------------------------------------------------------------------------------------
 
@@ -113,25 +111,9 @@ def vendeg_update(email: str, vendeg: schema_vendeg.VendegCreate, db: Session = 
 def vendeg_delete(email: str, db: Session = Depends(get_db)):
     return crud_vendeg.vendeg_delete(email, db)
 
-@app.get("/vendeg/email/{email}", tags=["Vendég", "Read"])
-def vendeg_by_email(email: str, db: Session = Depends(get_db)):
-    return crud_vendeg.vendeg_by_email(email, db)
-
-@app.get("/vendeg/nev/{nev}", tags=["Vendég", "Read"])
-def vendeg_by_nev(nev: str, db: Session = Depends(get_db)):
-    return crud_vendeg.vendeg_by_nev(nev, db)
-
-@app.get("/vendeg/datum/{datum}", tags=["Vendég", "Read"])
-def vendeg_by_datum(datum: str, db: Session = Depends(get_db)):
-    return crud_vendeg.vendeg_by_datum(datum, db)
-
-@app.get("/vendeg/fiatalabb/{ev}", tags=["Vendég", "Read"])
-def vendeg_fiatalabb(ev: int, db: Session = Depends(get_db)):
-    return crud_vendeg.vendeg_fiatalabb(ev, db)
-
-@app.get("/vendeg/idosebb/{ev}", tags=["Vendég", "Read"])
-def vendeg_idosebb(ev: int, db: Session = Depends(get_db)):
-    return crud_vendeg.vendeg_idosebb(ev, db)
+@app.get("/vendeg/legidosebb", tags=["Vendég", "Read"])
+def fizetett_osszeg_legidosebb_vendeg(db: Session = Depends(get_db)):
+    return crud_vendeg.fizetett_osszeg_legidosebb_vendeg(db)
 
 # Felhasznalo--------------------------------------------------------------------------------------
 
@@ -178,6 +160,10 @@ def foglalas_update(email: str, foglalas: schema_foglalas.FoglalasCreate, db: Se
 @app.delete("/foglalas/{email}/{mettol}/{meddig}", tags=["Foglalás", "Delete"])
 def foglalas_delete(email: str, mettol: datetime, meddig: datetime, db: Session = Depends(get_db)):
     return crud_foglalas.foglalas_delete(email, mettol, meddig, db)
+
+@app.get("/foglalasok/szurt_foglalasok", tags=["Foglalás", "Read"])
+def foglalas_filtered(db: Session = Depends(get_db)):
+    return crud_foglalas.foglalas_filtered(db)
 
 # Kezeli---------------------------------------------------------------------------------------
 

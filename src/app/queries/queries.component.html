@@ -1,0 +1,70 @@
+<div class="wrapper">
+  <h1>Szabad szobák</h1>
+
+  <mat-table [dataSource]="objectKeys(rooms)">
+    <ng-container matColumnDef="szobatipus">
+      <mat-header-cell *matHeaderCellDef>Szobatípus</mat-header-cell>
+      <mat-cell *matCellDef="let szobatipus"> {{ szobatipus }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="szobak">
+      <mat-header-cell *matHeaderCellDef>Szobák száma</mat-header-cell>
+      <mat-cell *matCellDef="let szobatipus"> {{ rooms[szobatipus] }}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="['szobatipus', 'szobak']"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: ['szobatipus', 'szobak'];"></mat-row>
+  </mat-table>
+</div>
+<div class="wrapper">
+  <h1>Foglalások (Legalább 3 fekvőhellyel)</h1>
+  
+  <mat-table [dataSource]="filteredReservations">
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
+      <mat-cell *matCellDef="let reservation">{{ reservation.email }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="mettol">
+      <mat-header-cell *matHeaderCellDef>Mettől</mat-header-cell>
+      <mat-cell *matCellDef="let reservation">{{ reservation.mettol }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="meddig">
+      <mat-header-cell *matHeaderCellDef>Meddig</mat-header-cell>
+      <mat-cell *matCellDef="let reservation">{{ reservation.meddig }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="megnevezes">
+      <mat-header-cell *matHeaderCellDef>Szobatípus</mat-header-cell>
+      <mat-cell *matCellDef="let reservation">{{ reservation.megnevezes }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="szobaszam">
+      <mat-header-cell *matHeaderCellDef>Szobaszám</mat-header-cell>
+      <mat-cell *matCellDef="let reservation">{{ reservation.szobaszam }}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="['email', 'mettol', 'meddig', 'megnevezes', 'szobaszam']"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: ['email', 'mettol', 'meddig', 'megnevezes', 'szobaszam'];"></mat-row>
+  </mat-table>
+</div>
+
+<div class="wrapper">
+  <h1>Legidősebb vendég költései</h1>
+
+  <mat-table [dataSource]="eldestGuestList">
+    <ng-container matColumnDef="nev">
+      <mat-header-cell *matHeaderCellDef>Név</mat-header-cell>
+      <mat-cell *matCellDef="let eldest">{{ eldest.nev }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="osszeg">
+      <mat-header-cell *matHeaderCellDef>Összeg</mat-header-cell>
+      <mat-cell *matCellDef="let eldest">{{ eldest.osszeg }}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="['nev', 'osszeg']"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: ['nev', 'osszeg'];"></mat-row>
+  </mat-table>
+</div>

@@ -1,7 +1,11 @@
 from datetime import datetime, timedelta
 from fastapi import HTTPException
+from sqlalchemy import func, asc
 from sqlalchemy.orm import Session
-from models import vendeg as model_vendeg
+from models import (
+    vendeg as model_vendeg,
+    foglalas as model_foglalas
+    )
 from schemas import vendeg as schema_vendeg
 
 def vendeg_create(vendeg: schema_vendeg.VendegCreate, db: Session):
@@ -37,36 +41,19 @@ def vendeg_update(email: str, vendeg: schema_vendeg.VendegCreate, db: Session):
     db.commit()
     return db_vendeg
 
-def vendeg_by_email(email: str, db: Session):
-    db_vendeg = db.query(model_vendeg.Vendeg).filter(model_vendeg.Vendeg.email == email).first()
-    if db_vendeg is None:
-        raise HTTPException(status_code=404, detail="Nincs ilyen vendeg")
-    return db_vendeg
+def fizetett_osszeg_legidosebb_vendeg(db: Session):
+    legidosebb_vendeg = (
+        db.query(model_vendeg.Vendeg)
+        .order_by(asc(model_vendeg.Vendeg.szuletesi_datum))
+        .first()
+    )
 
-def vendeg_by_nev(nev: str, db: Session):
-    db_vendeg = db.query(model_vendeg.Vendeg).filter(model_vendeg.Vendeg.nev == nev).all()
-    if not db_vendeg:
-        raise HTTPException(status_code=404, detail="Nincs ilyen vendeg")
-    return db_vendeg
+    osszegzett_fizetesek = (
+        db.query(func.sum(model_foglalas.Foglalas.fizetendo).label("osszeg"))
+        .filter(model_foglalas.Foglalas.email == legidosebb_vendeg.email)
+        .scalar() or 0
+    )
+    legidosebb_dict = legidosebb_vendeg.__dict__
+    legidosebb_dict["osszeg"] = osszegzett_fizetesek
 
-def vendeg_by_datum(datum: str, db: Session):
-    try:
-        datum_converted = datetime.strptime(datum, "%Y-%m-%d")
-    except ValueError:
-        raise HTTPException(status_code=400, detail="Hibas datum")
-    db_vendeg = db.query(model_vendeg.Vendeg).filter(model_vendeg.Vendeg.szuletesi_datum == datum_converted).all()
-    if not db_vendeg:
-        raise HTTPException(status_code=404, detail="Nincs ilyen vendeg")
-    return db_vendeg
-
-def vendeg_fiatalabb(ev: int, db: Session):
-    db_vendeg = db.query(model_vendeg.Vendeg).filter(model_vendeg.Vendeg.szuletesi_datum > datetime.now() - timedelta(days=365*ev)).all()
-    if not db_vendeg:
-        raise HTTPException(status_code=404, detail="Nincs ilyen vendeg")
-    return db_vendeg
-
-def vendeg_idosebb(ev: int, db: Session):
-    db_vendeg = db.query(model_vendeg.Vendeg).filter(model_vendeg.Vendeg.szuletesi_datum < datetime.now() - timedelta(days=365*ev)).all()
-    if not db_vendeg:
-        raise HTTPException(status_code=404, detail="Nincs ilyen vendeg")
-    return db_vendeg
+    return legidosebb_dict

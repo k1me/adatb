@@ -17,7 +17,11 @@ export class GuestService {
     return this.http.post(this.apiUrl + '/vendeg', guest);
   }
 
-  deleteGuest(email: number) {
+  deleteGuest(email: string) {
     return this.http.delete(this.apiUrl + '/vendeg/' + email);
+  }
+
+  getEldestGuest() {
+    return this.http.get<any[]>(this.apiUrl + '/vendeg/legidosebb');
   }
 }

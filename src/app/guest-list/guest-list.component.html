@@ -1,62 +1,61 @@
-<form #newGuestForm="ngForm" (ngSubmit)="addNewGuest()">
-    <div class="form-row">
-        <mat-form-field>
-            <mat-label>Email</mat-label>
-            <input matInput type="email" [(ngModel)]="newGuest.email" name="email" required>
-        </mat-form-field>
+<div class="wrapper">
+    <form #newGuestForm="ngForm" (ngSubmit)="addNewGuest()">
+        <h1>Új vendég</h1>
+        <div class="form-row">
+            <mat-form-field>
+                <mat-label>Email</mat-label>
+                <input matInput type="email" [(ngModel)]="newGuest.email" name="email" required>
+            </mat-form-field>
+            
+            <mat-form-field>
+                <mat-label>Név</mat-label>
+                <input matInput type="text" [(ngModel)]="newGuest.nev" name="nev" required>
+            </mat-form-field>
+            
+            <mat-form-field>
+                <mat-label>Telefonszám</mat-label>
+                <input matInput type="text" [(ngModel)]="newGuest.telefonszam" name="telefonszam" required>
+            </mat-form-field>
+            
+            <mat-form-field>
+                <mat-label>Születési dátum</mat-label>
+                <input matInput type="date" [(ngModel)]="newGuest.szuletesi_datum" name="szuletesi_datum" required>
+            </mat-form-field>
+            
+            <button mat-mini-fab color="primary" type="submit"><mat-icon>add</mat-icon></button>
+        </div>
+    </form>
+</div>
+<div class="wrapper">
+    <mat-table [dataSource]="guests">
+        <ng-container matColumnDef="email">
+            <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
+            <mat-cell *matCellDef="let guest">{{ guest.email }}</mat-cell>
+        </ng-container>
 
-        <mat-form-field>
-            <mat-label>Név</mat-label>
-            <input matInput type="text" [(ngModel)]="newGuest.nev" name="nev" required>
-        </mat-form-field>
+        <ng-container matColumnDef="nev">
+            <mat-header-cell *matHeaderCellDef>Név</mat-header-cell>
+            <mat-cell *matCellDef="let guest">{{ guest.nev }}</mat-cell>
+        </ng-container>
 
-        <mat-form-field>
-            <mat-label>Telefonszám</mat-label>
-            <input matInput type="text" [(ngModel)]="newGuest.telefonszam" name="telefonszam" required>
-        </mat-form-field>
+        <ng-container matColumnDef="telefonszam">
+            <mat-header-cell *matHeaderCellDef>Telefonszám</mat-header-cell>
+            <mat-cell *matCellDef="let guest">{{ guest.telefonszam }}</mat-cell>
+        </ng-container>
 
-        <mat-form-field>
-            <mat-label>Születési dátum</mat-label>
-            <input [matDatepicker]="picker" matInput type="date" [(ngModel)]="newGuest.szuletesi_datum"
-                name="szuletesi_datum" required>
-            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
+        <ng-container matColumnDef="szuletesi_datum">
+            <mat-header-cell *matHeaderCellDef>Születési Dátum</mat-header-cell>
+            <mat-cell *matCellDef="let guest">{{ guest.szuletesi_datum }}</mat-cell>
+        </ng-container>
 
-        <button mat-raised-button type="submit"><mat-icon>add</mat-icon></button>
-    </div>
-    <div class="wrapper">
-        <mat-table [dataSource]="guests">
+        <ng-container matColumnDef="action">
+            <mat-header-cell *matHeaderCellDef>Törlés</mat-header-cell>
+            <mat-cell *matCellDef="let guest"><button mat-mini-fab (click)="deleteGuest(guest.email)"
+                    color="primary"><mat-icon>delete</mat-icon></button></mat-cell>
+        </ng-container>
 
-            <ng-container matColumnDef="email">
-                <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
-                <mat-cell *matCellDef="let guest">{{ guest.email }}</mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="nev">
-                <mat-header-cell *matHeaderCellDef>Név</mat-header-cell>
-                <mat-cell *matCellDef="let guest">{{ guest.nev }}</mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="telefonszam">
-                <mat-header-cell *matHeaderCellDef>Telefonszám</mat-header-cell>
-                <mat-cell *matCellDef="let guest">{{ guest.telefonszam }}</mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="szuletesi_datum">
-                <mat-header-cell *matHeaderCellDef>Születési Dátum</mat-header-cell>
-                <mat-cell *matCellDef="let guest">{{ guest.szuletesi_datum }}</mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="action">
-                <mat-header-cell *matHeaderCellDef>Törlés</mat-header-cell>
-                <mat-cell *matCellDef="let guest"><button mat-mini-fab color="primary"><mat-icon>delete</mat-icon></button></mat-cell>
-            </ng-container>
-
-            <mat-header-row
-                *matHeaderRowDef="['email', 'nev', 'telefonszam', 'szuletesi_datum', 'action']"></mat-header-row>
-            <mat-row
-                *matRowDef="let row; columns: ['email', 'nev', 'telefonszam', 'szuletesi_datum', 'action'];"></mat-row>
-        </mat-table>
-    </div>
-</form>
+        <mat-header-row
+            *matHeaderRowDef="['email', 'nev', 'telefonszam', 'szuletesi_datum', 'action']"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: ['email', 'nev', 'telefonszam', 'szuletesi_datum', 'action'];"></mat-row>
+    </mat-table>
+</div>

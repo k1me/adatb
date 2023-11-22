@@ -38,7 +38,7 @@ export class GuestListComponent {
     });
   }
 
-  deleteGuest(email: number): void {
+  deleteGuest(email: string): void {
     this.guestService.deleteGuest(email).subscribe(() => {
       this.loadGuests();
     });

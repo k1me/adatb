@@ -4,6 +4,7 @@ import { GuestService } from '../services/guest.service';
 import { RoomService } from '../services/room.service';
 import { Room } from '../interfaces/room.interface';
 import { Observable, map, switchMap } from 'rxjs';
+import { MatTableDataSource } from '@angular/material/table';
 @Component({
   selector: 'app-reservation',
   templateUrl: './reservation.component.html',
@@ -25,6 +26,7 @@ export class ReservationComponent {
   mettol = new Date();
   meddig = new Date();
   occupiedRooms: any[] = [];
+  dataSource1: MatTableDataSource<any> = new MatTableDataSource<any>();
 
   constructor(private reservationService: ReservationService, private guestService: GuestService, private roomService: RoomService) { }
 
@@ -87,7 +89,7 @@ export class ReservationComponent {
               this.reservationService.updateRoomStatus(this.selectedEmail, isoStringMettol, isoStringMeddig, this.selectedRooms)
                 .subscribe(() => {
                   this.reloadPage();
-               });
+                });
 
             });
         });
@@ -134,7 +136,6 @@ export class ReservationComponent {
           (selectedMeddig >= occupiedMettol && selectedMeddig <= occupiedMeddig) ||
           (selectedMettol <= occupiedMettol && selectedMeddig >= occupiedMeddig)
         );
-
         return room.szobaszam === occupiedRoom.szobaszam && overlap;
       });
     });
@@ -145,19 +146,22 @@ export class ReservationComponent {
   }
 
   addRoomToList(): void {
-    this.getRoomPrice(this.selectedRoomType).subscribe(napi_ar => {
+    this.getRoomPrice(this.selectedRoomType).subscribe(_ => {
       const szoba: Room = {
         megnevezes: this.selectedRoomType,
         szobaszam: this.selectedRoomNumber,
       };
       this.selectedRooms.push(szoba);
-      console.log(this.selectedRooms);
+      this.dataSource1 = new MatTableDataSource(this.selectedRooms);
+      this.dataSource1.connect();
     });
   }
 
   deleteRoomFromList(room: Room): void {
     this.selectedRooms = this.selectedRooms.filter(szoba => szoba.szobaszam !== room.szobaszam);
     this.restOfTheRooms.push(room);
+    this.dataSource1 = new MatTableDataSource(this.selectedRooms);
+    this.dataSource1.connect();
   }
 
   getRoomPrice(roomType: string): Observable<number> {

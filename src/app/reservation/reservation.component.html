@@ -1,157 +1,111 @@
-<form #newReservationForm="ngForm" (ngSubmit)="addNewReservation()">
-    <table>
-        <thead>
-            <tr>
-                <th>Email</th>
-                <th>Mettől</th>
-                <th>Meddig</th>
-                <th>Szobatípus</th>
-                <th>Szobaszám</th>
-                <th>Új szoba</th>
-                <th>Mentés</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                    <select name="email" id="email" [(ngModel)]="selectedEmail">
-                        <option *ngFor="let guest of guests" [value]="guest.email">
-                            {{ guest.email }}
-                        </option>
-                    </select>
-                </td>
-                <td>
-                    <input type="date" name="mettol" id="mettol" required [(ngModel)]="mettol">
-                </td>
-                <td>
-                    <input type="date" name="meddig" id="meddig" required [(ngModel)]="meddig">
-                </td>
-                <td>
-                    <select name="szobatipus" id="szobatipus" [(ngModel)]="selectedRoomType"
-                        (change)="updateSelectedRoomType(selectedRoomType)">
-                        <option *ngFor="let roomType of roomTypes" [value]="roomType.megnevezes">
-                            {{ roomType.megnevezes }}
-                        </option>
-                    </select>
-                </td>
-                <td>
-                    <select name="szobaszam" id="szobaszam" [(ngModel)]="selectedRoomNumber"
-                        (change)="updateSelectedRoomNumber(selectedRoomNumber)">
-                        <option *ngFor="let room of restOfTheRooms" [value]="room.szobaszam">
-                            {{ room.szobaszam }}
-                        </option>
-                    </select>
-                </td>
-                <td>
-                    <button type="button" (click)="addRoomToList()"><mat-icon>add</mat-icon></button>
-                </td>
-                <td>
-                    <button type="submit"><mat-icon>saveoutlined</mat-icon></button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</form>
-<table *ngIf="selectedRooms.length > 0">
-    <thead>
-        <tr>
-            <th>Szobatípus</th>
-            <th>Szobaszám</th>
-            <th>Törlés</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let room of selectedRooms">
-            <td>{{ room.megnevezes }}</td>
-            <td>{{ room.szobaszam }}</td>
-            <td>
-                <button type="button" (click)="deleteRoomFromList(room)">-</button>
-            </td>
-        </tr>
-    </tbody>
-</table>
-<table>
-    <thead>
-        <tr>
-            <th>Email</th>
-            <th>Mettől</th>
-            <th>Meddig</th>
-            <th>Fizetendő</th>
-            <th>Törlés</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let reservation of reservations">
-            <td>{{ reservation.email }}</td>
-            <td>{{ reservation.mettol }}</td>
-            <td>{{ reservation.meddig }}</td>
-            <td>{{ reservation.fizetendo }} Ft</td>
-            <td>
-                <button type="button" (click)="deleteReservation(reservation)"><mat-icon>delete</mat-icon></button>
-            </td>
-        </tr>
-    </tbody>
-</table>
-<!---
-    <form #newGuestForm="ngForm" (ngSubmit)="addNewGuest()">
-        <table mat-table [dataSource]="guests" class="mat-elevation-z8">
-            
-            <ng-container matColumnDef="email">
-        <th mat-header-cell *matHeaderCellDef>Email</th>
-        <td mat-cell *matCellDef="let guest">{{ guest.email }}</td>
-      </ng-container>
-  
-      <ng-container matColumnDef="nev">
-          <th mat-header-cell *matHeaderCellDef>Név</th>
-          <td mat-cell *matCellDef="let guest">{{ guest.nev }}</td>
-        </ng-container>
+<div class="wrapper">
+    <form #newReservationForm="ngForm">
+        <h1>Új foglalás</h1>
+        <div class="form-row">
+            <mat-form-field>
+                <mat-label>Email</mat-label>
+                <mat-select name="email" id="email" [(ngModel)]="selectedEmail">
+                    <mat-option *ngFor="let guest of guests" [value]="guest.email">{{ guest.email }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Mettől</mat-label>
+                <input matInput type="date" name="mettol" id="mettol" required [(ngModel)]="mettol">
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Meddig</mat-label>
+                <input matInput type="date" name="meddig" id="meddig" required [(ngModel)]="meddig">
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Szobatípus</mat-label>
+                <mat-select name="szobatipus" id="szobatipus" [(ngModel)]="selectedRoomType"
+                        (ngModelChange)="updateSelectedRoomType(selectedRoomType)">
+                    <mat-option *ngFor="let roomType of roomTypes" [value]="roomType.megnevezes">{{ roomType.megnevezes
+                        }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Szobaszám</mat-label>
+                <mat-select name="szobaszam" id="szobaszam" [(ngModel)]="selectedRoomNumber"
+                    (change)="updateSelectedRoomNumber(selectedRoomNumber)">
+                    <mat-option *ngFor="let room of restOfTheRooms" [value]="room.szobaszam">{{ room.szobaszam
+                        }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <button mat-mini-fab color="primary" (click)="addRoomToList()">
+                <mat-icon>add</mat-icon>
+            </button>
         
-        <ng-container matColumnDef="telefonszam">
-            <th mat-header-cell *matHeaderCellDef>Telefonszám</th>
-            <td mat-cell *matCellDef="let guest">{{ guest.telefonszam }}</td>
+            <button mat-mini-fab color="primary" (click)="addNewReservation()">
+                <mat-icon>saveoutlined</mat-icon>
+            </button>
+        </div>
+    </form>
+</div>
+
+<div class="wrapper">
+    <mat-table *ngIf="selectedRooms.length > 0" [dataSource]="dataSource1">
+        <ng-container matColumnDef="megnevezes">
+            <mat-header-cell *matHeaderCellDef>Szobatípus</mat-header-cell>
+            <mat-cell *matCellDef="let room">{{ room.megnevezes }}</mat-cell>
         </ng-container>
-        
-        <ng-container matColumnDef="szuletesi_datum">
-            <th mat-header-cell *matHeaderCellDef>Születési dátum</th>
-            <td mat-cell *matCellDef="let guest">{{ guest.szuletesi_datum }}</td>
+
+        <ng-container matColumnDef="szobaszam">
+            <mat-header-cell *matHeaderCellDef>Szobaszám</mat-header-cell>
+            <mat-cell *matCellDef="let room">{{ room.szobaszam }}</mat-cell>
         </ng-container>
-        
-        <ng-container matColumnDef="actions">
-            <th mat-header-cell *matHeaderCellDef>Művelet</th>
-            <td mat-cell *matCellDef="let guest">
-                <button mat-icon-button (click)="deleteGuest(guest.email)">
+
+        <ng-container matColumnDef="torles">
+            <mat-header-cell *matHeaderCellDef>Törlés</mat-header-cell>
+            <mat-cell *matCellDef="let room">
+                <button mat-mini-fab (click)="deleteRoomFromList(room)" color="primary">
+                    <mat-icon>remove</mat-icon>
+                </button>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="['megnevezes', 'szobaszam', 'torles']"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: ['megnevezes', 'szobaszam', 'torles'];"></mat-row>
+    </mat-table>
+</div>
+
+<div class="wrapper">
+    <mat-table *ngIf="reservations.length > 0" [dataSource]="reservations">
+        <ng-container matColumnDef="email">
+            <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
+            <mat-cell *matCellDef="let reservation">{{ reservation.email }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="mettol">
+            <mat-header-cell *matHeaderCellDef>Mettől</mat-header-cell>
+            <mat-cell *matCellDef="let reservation">{{ reservation.mettol }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="meddig">
+            <mat-header-cell *matHeaderCellDef>Meddig</mat-header-cell>
+            <mat-cell *matCellDef="let reservation">{{ reservation.meddig }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="fizetendo">
+            <mat-header-cell *matHeaderCellDef>Fizetendő</mat-header-cell>
+            <mat-cell *matCellDef="let reservation">{{ reservation.fizetendo }} Ft</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="torles">
+            <mat-header-cell *matHeaderCellDef>Törlés</mat-header-cell>
+            <mat-cell *matCellDef="let reservation">
+                <button mat-mini-fab (click)="deleteReservation(reservation)" color="primary">
                     <mat-icon>delete</mat-icon>
                 </button>
-            </td>
+            </mat-cell>
         </ng-container>
-        
-       
-        <tr mat-header-row *matHeaderRowDef="['email', 'nev', 'telefonszam', 'szuletesi_datum', 'actions']"></tr>
-        <tr mat-row *matRowDef="let row; columns: ['email', 'nev', 'telefonszam', 'szuletesi_datum', 'actions'];"></tr>
-    </table>
-  
-    <div class="form-row">
-        <mat-form-field>
-            <mat-label>Email</mat-label>
-            <input matInput type="email" [(ngModel)]="guestuest.email" name="email" required>
-        </mat-form-field>
-        
-        <mat-form-field>
-            <mat-label>Név</mat-label>
-            <input matInput type="text" [(ngModel)]="newGuest.nev" name="nev" required>
-        </mat-form-field>
-        
-        <mat-form-field>
-            <mat-label>Telefonszám</mat-label>
-            <input matInput type="text" [(ngModel)]="newGuest.telefonszam" name="telefonszam" required>
-        </mat-form-field>
-        
-        <mat-form-field>
-            <mat-label>Születési dátum</mat-label>
-            <input matInput type="date" [(ngModel)]="newGuest.szuletesi_datum" name="szuletesi_datum" required>
-        </mat-form-field>
-        
-        <button mat-raised-button type="submit"><mat-icon>add</mat-icon>Hozzáadás</button>
-    </div>
-</form>
--->
+
+        <mat-header-row *matHeaderRowDef="['email', 'mettol', 'meddig', 'fizetendo', 'torles']"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: ['email', 'mettol', 'meddig', 'fizetendo', 'torles'];"></mat-row>
+    </mat-table>
+</div>

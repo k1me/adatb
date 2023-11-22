@@ -33,14 +33,17 @@ def szoba_update(szobaszam: int, szoba: schema_szoba.SzobaCreate, db: Session):
     db.commit()
     return db_szoba
 
-def szoba_by_szobaszam(szobaszam: int, db: Session):
-    db_szoba = db.query(model_szoba.Szoba).filter(model_szoba.Szoba.szobaszam == szobaszam).first()
-    if db_szoba is None:
-        raise HTTPException(status_code=404, detail="Nincs ilyen szoba")
-    return db_szoba
 
-def szoba_by_megnevezes(megnevezes: str, db: Session):
-    db_szoba = db.query(model_szoba.Szoba).filter(model_szoba.Szoba.megnevezes == megnevezes).all()
-    if not db_szoba:
-        raise HTTPException(status_code=404, detail="Nincs ilyen szobatipus")
-    return db_szoba
+# Listázza ki táblázatosan, hogy melyik típusú szobából hány darab van a szállodában!
+def szobak_count_by_type(db: Session):
+    db_szoba = db.query(model_szoba.Szoba).all()
+    
+    szobak = {}
+    
+    for szoba in db_szoba:
+        if szoba.megnevezes in szobak:
+            szobak[szoba.megnevezes] += 1
+        else:
+            szobak[szoba.megnevezes] = 1
+            
+    return szobak

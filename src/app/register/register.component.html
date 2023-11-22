@@ -1,18 +1,26 @@
 <div class="register-container">
-    <h2>Regisztráció</h2>
-    <form (ngSubmit)="register()">
-      <label for="username">Felhasználónév:</label>
-      <input type="text" id="felhasznalonev" name="felhasznalonev" [(ngModel)]="felhasznalo.felhasznalonev" required>
-  
-      <label for="name">Név:</label>
-      <input type="text" id="nev" name="nev" [(ngModel)]="felhasznalo.nev" required>
-  
-      <label for="password">Jelszó:</label>
-      <input type="password" id="jelszo" name="jelszo" [(ngModel)]="felhasznalo.jelszo" required>
-  
-      <label for="confirmPassword">Jelszó újra:</label>
-      <input type="password" id="confirmPassword" name="confirmPassword" [(ngModel)]="confirmPassword" required>
-  
-      <button type="submit">Regisztráció</button>
-    </form>
-  </div>
+  <h2>Regisztráció</h2>
+  <form (ngSubmit)="register()">
+    <mat-form-field appearance="fill">
+      <mat-label>Felhasználónév:</mat-label>
+      <input matInput type="text" id="felhasznalonev" name="felhasznalonev" [(ngModel)]="felhasznalo.felhasznalonev" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Név:</mat-label>
+      <input matInput type="text" id="nev" name="nev" [(ngModel)]="felhasznalo.nev" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Jelszó:</mat-label>
+      <input matInput type="password" id="jelszo" name="jelszo" [(ngModel)]="felhasznalo.jelszo" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Jelszó újra:</mat-label>
+      <input matInput type="password" id="confirmPassword" name="confirmPassword" [(ngModel)]="confirmPassword" required>
+    </mat-form-field>
+
+    <button mat-raised-button type="submit" color="primary">Regisztráció</button>
+  </form>
+</div>

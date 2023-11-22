@@ -8,7 +8,7 @@
 }
 
 mat-table {
-  width: 100%;
+  width: 50%;
   margin-top: 20px;
   border: 1px solid #ccc;
   border-radius: 15px;
@@ -22,15 +22,15 @@ mat-table {
     justify-content: center;
   }
 
-  mat-cell:nth-child(odd) {
+  mat-cell {
     padding: 12px;
     display: flex;
-    justify-content: right;
+    justify-content: center;
   }
 
   mat-header-row {
     background-color: #666;
-    color: white;
+    color: #f1f0f0;
     border-radius: 15px 15px 0 0;
   }
 
@@ -52,5 +52,9 @@ mat-table {
 
   mat-row:hover {
     background-color: #555;
+  }
+
+  .foglalt {
+    background-color: #9c5f5f;
   }
 }

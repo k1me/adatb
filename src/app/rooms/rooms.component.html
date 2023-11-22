@@ -7,7 +7,8 @@
 
         <ng-container matColumnDef="szobaszam">
             <mat-header-cell *matHeaderCellDef>Szobaszám</mat-header-cell>
-            <mat-cell *matCellDef="let room">{{ room.szobaszam }}</mat-cell>
+            <mat-cell *matCellDef="let room" [ngClass]="{'foglalt': isRoomOccupied(room.szobaszam)}">{{ room.szobaszam
+                }}</mat-cell>
         </ng-container>
 
         <mat-header-row *matHeaderRowDef="['megnevezes', 'szobaszam']"></mat-header-row>

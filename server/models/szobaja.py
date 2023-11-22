@@ -1,4 +1,5 @@
 from sqlalchemy import Column, ForeignKey, Integer, String, Text, DateTime
+from sqlalchemy.orm import relationship
 from database import Base
 from models.szoba import Szoba
 from models.vendeg import Vendeg
@@ -11,3 +12,4 @@ class Szobaja(Base):
     szobaszam = Column(Integer, ForeignKey(Szoba.szobaszam), primary_key=True, index=True)
     mettol = Column(DateTime, ForeignKey(Foglalas.mettol), primary_key=True, index=True)
     meddig = Column(DateTime, ForeignKey(Foglalas.meddig), primary_key=True, index=True)
+    szoba = relationship("Szoba")
