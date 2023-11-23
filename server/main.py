@@ -54,7 +54,8 @@ def get_db():
 
 @app.post("/szobatipus", tags=["Szobatipus", "Create"])
 def szobatipus_create(
-    szobatipus: schema_szobatipus.SzobaTipusCreate, db: Session = Depends(get_db)):
+    szobatipus: schema_szobatipus.SzobaTipusCreate, db: Session = Depends(get_db)
+):
     return crud_szobatipus.szobatipus_create(szobatipus, db)
 
 
@@ -65,7 +66,8 @@ def szobatipus_list(db: Session = Depends(get_db)):
 
 @app.put("/szobatipus/{megnevezes}", tags=["Szobatipus", "Update"])
 def szobatipus_update(
-    szobatipus: schema_szobatipus.SzobaTipusCreate, db: Session = Depends(get_db)):
+    szobatipus: schema_szobatipus.SzobaTipusCreate, db: Session = Depends(get_db)
+):
     return crud_szobatipus.szobatipus_update(szobatipus, db)
 
 
@@ -94,7 +96,8 @@ def szoba_list(db: Session = Depends(get_db)):
 
 @app.put("/szoba/{szobaszam}", tags=["Szoba", "Update"])
 def szoba_update(
-    szobaszam: int, szoba: schema_szoba.SzobaCreate, db: Session = Depends(get_db)):
+    szobaszam: int, szoba: schema_szoba.SzobaCreate, db: Session = Depends(get_db)
+):
     return crud_szoba.szoba_update(szobaszam, szoba, db)
 
 
@@ -103,7 +106,6 @@ def szoba_delete(szobaszam: int, db: Session = Depends(get_db)):
     return crud_szoba.szoba_delete(szobaszam, db)
 
 
-# Listázza ki táblázatosan, hogy melyik típusú szobából hány darab van a szállodában!
 @app.get("/szobak/darab", tags=["Szoba", "Read"])
 def szobak_count(db: Session = Depends(get_db)):
     return crud_szoba.szobak_count_by_type(db)
@@ -124,7 +126,8 @@ def vendeg_list(db: Session = Depends(get_db)):
 
 @app.put("/vendeg/{email}", tags=["Vendég", "Update"])
 def vendeg_update(
-    email: str, vendeg: schema_vendeg.VendegCreate, db: Session = Depends(get_db)):
+    email: str, vendeg: schema_vendeg.VendegCreate, db: Session = Depends(get_db)
+):
     return crud_vendeg.vendeg_update(email, vendeg, db)
 
 
@@ -143,7 +146,8 @@ def fizetett_osszeg_legidosebb_vendeg(db: Session = Depends(get_db)):
 
 @app.post("/felhasznalo/register", tags=["Felhasználó", "Create"])
 def felhasznalo_create(
-    felhasznalo: schema_felhasznalo.FelhasznaloCreate, db: Session = Depends(get_db)):
+    felhasznalo: schema_felhasznalo.FelhasznaloCreate, db: Session = Depends(get_db)
+):
     return crud_felhasznalo.felhasznalo_create(felhasznalo, db)
 
 
@@ -156,7 +160,8 @@ def felhasznalo_list(db: Session = Depends(get_db)):
 def felhasznalo_update(
     felhasznalonev: str,
     felhasznalo: schema_felhasznalo.FelhasznaloCreate,
-    db: Session = Depends(get_db),):
+    db: Session = Depends(get_db),
+):
     return crud_felhasznalo.felhasznalo_update(felhasznalonev, felhasznalo, db)
 
 
@@ -167,7 +172,8 @@ def felhasznalo_delete(felhasznalonev: str, db: Session = Depends(get_db)):
 
 @app.post("/felhasznalo/login", tags=["Felhasználó", "Create"])
 def felhasznalo_login(
-    felhasznalo: schema_felhasznalo.Bejelentkezes, db: Session = Depends(get_db)):
+    felhasznalo: schema_felhasznalo.Bejelentkezes, db: Session = Depends(get_db)
+):
     return crud_felhasznalo.felhasznalo_login(felhasznalo, db)
 
 
@@ -181,7 +187,8 @@ def felhasznalo_by_felhasznalonev(felhasznalonev: str, db: Session = Depends(get
 
 @app.post("/foglalas", tags=["Foglalás", "Create"])
 def foglalas_create(
-    foglalas: schema_foglalas.FoglalasCreate, db: Session = Depends(get_db)):
+    foglalas: schema_foglalas.FoglalasCreate, db: Session = Depends(get_db)
+):
     return crud_foglalas.foglalas_create(foglalas, db)
 
 
@@ -192,13 +199,15 @@ def foglalas_list(db: Session = Depends(get_db)):
 
 @app.put("/foglalas/{email}", tags=["Foglalás", "Update"])
 def foglalas_update(
-    email: str, foglalas: schema_foglalas.FoglalasCreate, db: Session = Depends(get_db)):
+    email: str, foglalas: schema_foglalas.FoglalasCreate, db: Session = Depends(get_db)
+):
     return crud_foglalas.foglalas_update(email, foglalas, db)
 
 
 @app.delete("/foglalas/{email}/{mettol}/{meddig}", tags=["Foglalás", "Delete"])
 def foglalas_delete(
-    email: str, mettol: datetime, meddig: datetime, db: Session = Depends(get_db)):
+    email: str, mettol: datetime, meddig: datetime, db: Session = Depends(get_db)
+):
     return crud_foglalas.foglalas_delete(email, mettol, meddig, db)
 
 
@@ -230,7 +239,8 @@ def kezeli_by_felhasznalonev(felhasznalonev: str, db: Session = Depends(get_db))
 
 @app.post("/szobaja", tags=["Szobája", "Create"])
 def szobaja_create(
-    altSzobaja: schema_szobaja.SzobajaAltered, db: Session = Depends(get_db)):
+    altSzobaja: schema_szobaja.SzobajaAltered, db: Session = Depends(get_db)
+):
     return crud_szobaja.szobaja_create(altSzobaja, db)
 
 
