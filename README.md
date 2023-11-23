@@ -1,28 +1,77 @@
-# Szalloda
+# Szallodai adatbázis kötelező program
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.6.
+## A weboldal futtatásához szükséges lépések
 
-## Development server
+### 1. Lépés: Node.js telepítése
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+A Node.js telepítéséhez látogasson el a [Node.js](https://nodejs.org/en/) oldalra, és töltse le a legfrissebb LTS verziót. A telepítő futtatása után a Node.js és a Node Package Manager (npm) is települ a számítógépére.
 
-## Code scaffolding
+### 2. Lépés: Angular CLI telepítése
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Az angular CLI telepítéséhez nyissa meg a parancssort, és futtassa a következő parancsot:
 
-## Build
+```bash
+npm install -g @angular/cli
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### 3. Lépés: Futtatás
 
-## Running unit tests
+A weboldal futtatásához nyissa meg a parancssort a projekt gyökérkönyvtárában, és futtassa a következő parancsot:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```bash
+ng serve --open
+```
 
-## Running end-to-end tests
+Ezután a weboldal elérhető lesz a böngészőben a http://localhost:4200/ címen.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## API futtatása
 
-## Further help
+A backend API futtatásához szükséges a [Python](https://www.python.org/) és a pip telepítése. A pip telepítéséhez nyissa meg a parancssort, és futtassa a következő parancsot:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
-"# adatb" 
+```bash
+python -m pip install --upgrade pip
+```
+
+Ha még nincs telepítve a virtualenv csomag, akkor a következő paranccsal telepíthető:
+
+```bash
+pip install virtualenv
+```
+
+Ezután létrehozunk egy virtuális környezetet a projekt /server könyvtárában a következő paranccsal:
+
+```bash
+python -m venv .venv
+```
+
+A virtuális környezet aktiválásához a következő parancsot kell futtatni:
+
+```bash
+# Windows alatt:
+.venv\Scripts\activate
+
+# Linux alatt:
+source .venv/bin/activate
+```
+
+Ezután a virtuális környezetben a következő paranccsal telepíthetőek a szükséges csomagok:
+
+```bash
+pip install -r requirements.txt 
+```
+
+Ezután a backend API futtatható a következő paranccsal:
+
+```bash
+uvicorn main:app --reload
+```
+
+## Felhasznált technológiák
+
+- [Angular](https://angular.io/)
+- [Angular Material](https://material.angular.io/)
+- [Node.js](https://nodejs.org/en/)
+- [npm](https://www.npmjs.com/)
+- [FastAPI](https://fastapi.tiangolo.com/)
+- [Python](https://www.python.org/)
+- [MySQL](https://www.mysql.com/)
