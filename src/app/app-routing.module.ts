@@ -10,15 +10,15 @@ import { RoomsComponent } from './rooms/rooms.component';
 import { QueriesComponent } from './queries/queries.component';
 
 const routes: Routes = [
-  { path:'login', component: LoginComponent },
-  { path:'register', component: RegisterComponent },
-  { path:'home', component: HomeComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'home', component: HomeComponent },
   { path: 'guests', component: GuestListComponent },
-  { path: 'reservations', component: ReservationComponent},
-  { path: 'roomtypes', component: RoomTypeComponent},
-  { path: 'rooms', component: RoomsComponent},
+  { path: 'reservations', component: ReservationComponent },
+  { path: 'roomtypes', component: RoomTypeComponent },
+  { path: 'rooms', component: RoomsComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'queries', component: QueriesComponent}
+  { path: 'queries', component: QueriesComponent }
 ];
 
 @NgModule({

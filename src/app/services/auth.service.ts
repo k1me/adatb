@@ -9,7 +9,7 @@ export class AuthService {
   private baseUrl = 'http://localhost:8000';
   private loggedInUser: boolean = false;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   login(credentials: { felhasznalonev: string, jelszo: string }): Observable<any> {
     const url = `${this.baseUrl}/felhasznalo/login`;

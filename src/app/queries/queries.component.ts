@@ -9,12 +9,12 @@ import { GuestService } from '../services/guest.service';
   styleUrls: ['./queries.component.scss']
 })
 export class QueriesComponent {
-  rooms : any = {};
+  rooms: any = {};
   filteredReservations: any = {};
   eldestGuest: any = {};
   eldestGuestList: any[] = [];
 
-  constructor( private roomService: RoomService, private reservationService: ReservationService, private guestService: GuestService) { }
+  constructor(private roomService: RoomService, private reservationService: ReservationService, private guestService: GuestService) { }
 
   ngOnInit(): void {
     this.roomService.getRoomSummary().subscribe((data: any) => {

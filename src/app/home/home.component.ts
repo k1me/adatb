@@ -13,12 +13,12 @@ export class HomeComponent implements OnInit {
   reservations: any[] = [];
   user: any = null;
 
-  constructor(private guestService: GuestService, private reservationService: ReservationService, private authService: AuthService) {}
+  constructor(private guestService: GuestService, private reservationService: ReservationService, private authService: AuthService) { }
 
   getToken(): null | string {
     return sessionStorage.getItem('loginToken');
   }
-  
+
   ngOnInit(): void {
     this.guestService.getGuests().subscribe(users => {
       this.guests = users;
@@ -29,12 +29,12 @@ export class HomeComponent implements OnInit {
     });
 
     const token = this.getToken();
-    
+
     if (token) {
       this.authService.getUser(token).subscribe(user => {
         this.user = user;
       });
     }
   }
-  
+
 }

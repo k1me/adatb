@@ -15,7 +15,7 @@ export class GuestListComponent {
     szuletesi_datum: new Date()
   };
 
-  constructor(private guestService: GuestService) {}
+  constructor(private guestService: GuestService) { }
 
   ngOnInit(): void {
     this.guestService.getGuests().subscribe(users => {

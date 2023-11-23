@@ -34,8 +34,10 @@
             </mat-cell>
         </ng-container>
 
-        <mat-header-row  *matHeaderRowDef="['email', 'nev', 'fekvohelyek_szama', 'szuletesiDatum', 'mentes']"></mat-header-row>
-        <mat-row mat-row *matRowDef="let row; columns: ['email', 'nev', 'fekvohelyek_szama', 'szuletesiDatum', 'mentes'];">
+        <mat-header-row
+            *matHeaderRowDef="['email', 'nev', 'fekvohelyek_szama', 'szuletesiDatum', 'mentes']"></mat-header-row>
+        <mat-row mat-row
+            *matRowDef="let row; columns: ['email', 'nev', 'fekvohelyek_szama', 'szuletesiDatum', 'mentes'];">
         </mat-row>
     </mat-table>
 </div>

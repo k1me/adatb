@@ -3,7 +3,8 @@
   <form (ngSubmit)="register()">
     <mat-form-field appearance="fill">
       <mat-label>Felhasználónév:</mat-label>
-      <input matInput type="text" id="felhasznalonev" name="felhasznalonev" [(ngModel)]="felhasznalo.felhasznalonev" required>
+      <input matInput type="text" id="felhasznalonev" name="felhasznalonev" [(ngModel)]="felhasznalo.felhasznalonev"
+        required>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
@@ -18,7 +19,8 @@
 
     <mat-form-field appearance="fill">
       <mat-label>Jelszó újra:</mat-label>
-      <input matInput type="password" id="confirmPassword" name="confirmPassword" [(ngModel)]="confirmPassword" required>
+      <input matInput type="password" id="confirmPassword" name="confirmPassword" [(ngModel)]="confirmPassword"
+        required>
     </mat-form-field>
 
     <button mat-raised-button type="submit" color="primary">Regisztráció</button>

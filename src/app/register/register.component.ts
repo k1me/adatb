@@ -12,14 +12,14 @@ export class RegisterComponent {
   felhasznalo: any = {};
   confirmPassword: string = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) { }
 
   async register() {
     if (this.felhasznalo.jelszo !== this.confirmPassword) {
       console.error('A két jelszó nem egyezik meg.');
       return;
     }
-  
+
     this.authService.register(this.felhasznalo).pipe(
       tap({
         next: response => {

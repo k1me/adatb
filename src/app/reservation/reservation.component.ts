@@ -3,7 +3,7 @@ import { ReservationService } from '../services/reservation.service';
 import { GuestService } from '../services/guest.service';
 import { RoomService } from '../services/room.service';
 import { Room } from '../interfaces/room.interface';
-import { Observable, map, switchMap } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
 @Component({
   selector: 'app-reservation',

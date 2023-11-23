@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 export class GuestService {
   private apiUrl = 'http://localhost:8000';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getGuests() {
     return this.http.get<any[]>(this.apiUrl + '/vendegek');

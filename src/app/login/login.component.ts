@@ -13,7 +13,7 @@ export class LoginComponent {
   felhasznalonev: string = '';
   jelszo: string = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) { }
 
   register() {
     this.router.navigate(['/register']);
