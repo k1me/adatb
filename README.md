@@ -1,22 +1,30 @@
-# Szallodai adatbázis kötelező program
+# **Szallodai adatbázis kötelező program**
 
 ## A weboldal futtatásához szükséges lépések
 
 ### 1. Lépés: Node.js telepítése
 
-A Node.js telepítéséhez látogasson el a [Node.js](https://nodejs.org/en/) oldalra, és töltse le a legfrissebb LTS verziót. A telepítő futtatása után a Node.js és a Node Package Manager (npm) is települ a számítógépére.
+A Node.js telepítéséhez [Node.js](https://nodejs.org/en/) oldalra, és töltse le a legfrissebb LTS verziót. A telepítő futtatása után a Node.js és a Node Package Manager (npm) is települ a számítógépére.
 
 ### 2. Lépés: Angular CLI telepítése
 
-Az angular CLI telepítéséhez nyissa meg a parancssort, és futtassa a következő parancsot:
+Az angular CLI telepítéséhez a parancssorba a következőt kell beírni:
 
 ```bash
 npm install -g @angular/cli
 ```
 
-### 3. Lépés: Futtatás
+### 3. Lépés: Függőségek telepítése
 
-A weboldal futtatásához nyissa meg a parancssort a projekt gyökérkönyvtárában, és futtassa a következő parancsot:
+A projekt gyökérkönyvtárában a parancssorba a következőt kell beírni:
+
+```bash
+npm install
+```
+
+### 4. Lépés: Futtatás
+
+A weboldal futtatásához a parancssorba (a projekt gyökérkönyvtárában) a következőt kell beírni:
 
 ```bash
 ng serve --open
