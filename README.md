@@ -4,7 +4,7 @@
 
 ### 1. Lépés: Node.js telepítése
 
-A Node.js telepítéséhez [Node.js](https://nodejs.org/en/) oldalra, és töltse le a legfrissebb LTS verziót. A telepítő futtatása után a Node.js és a Node Package Manager (npm) is települ a számítógépére.
+A Node.js telepítése [Node.js](https://nodejs.org/en/) oldalraról.
 
 ### 2. Lépés: Angular CLI telepítése
 
