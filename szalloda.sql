@@ -329,7 +329,7 @@ CREATE TABLE IF NOT EXISTS `szobaja` (
 	CONSTRAINT `szobaja.szobaszam` FOREIGN KEY (`szobaszam`) REFERENCES `szoba` (`szobaszam`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
 
--- Tábla adatainak mentése szalloda.szobaja: ~32 rows (hozzávetőleg)
+-- Tábla adatainak mentése szalloda.szobaja: ~31 rows (hozzávetőleg)
 INSERT INTO
 	`szobaja` (`szobaszam`, `mettol`, `meddig`, `email`)
 VALUES
@@ -535,7 +535,7 @@ CREATE TABLE IF NOT EXISTS `szobatipus` (
 	PRIMARY KEY (`megnevezes`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
 
--- Tábla adatainak mentése szalloda.szobatipus: ~5 rows (hozzávetőleg)
+-- Tábla adatainak mentése szalloda.szobatipus: ~6 rows (hozzávetőleg)
 INSERT INTO
 	`szobatipus` (
 		`megnevezes`,
