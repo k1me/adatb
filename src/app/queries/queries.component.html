@@ -61,7 +61,7 @@
 
     <ng-container matColumnDef="osszeg">
       <mat-header-cell *matHeaderCellDef>Összeg</mat-header-cell>
-      <mat-cell *matCellDef="let eldest">{{ eldest.osszeg }}</mat-cell>
+      <mat-cell *matCellDef="let eldest">{{ eldest.osszeg }} Ft</mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="['nev', 'osszeg']"></mat-header-row>

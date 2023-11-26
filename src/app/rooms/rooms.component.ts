@@ -27,7 +27,7 @@ export class RoomsComponent {
       occupiedRooms.forEach(room => {
         const dateFrom = new Date(room.mettol);
         const dateTo = new Date(room.meddig);
-        if (dateFrom < this.todaysDate || dateTo > this.todaysDate) {
+        if (dateFrom < this.todaysDate && dateTo > this.todaysDate) {
           this.occupiedRooms.set(room.szobaszam, true);
         }
       });
